@@ -2,24 +2,21 @@
   <div class="card-body">
     <h5 class="card-title text-dark">Comments: <%= commentsLength %></h5>
 
-
-
-                        <form class="mb-4">
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search comments...">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-
+    <form class="mb-4">
+      <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Search comments...">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search fa-sm"></i>
+          </button>
+        </div>
+      </div>
+    </form>
 
     <% if (search.length > 0) { %>
       <h7> Search for: <%= search %> </h7>
     <% } %>
-      <% if (comments.length > 0) { %>
+    <% if (comments.length > 0) { %>
       <p class="card-text">
 
         <% if (comments.length > 0) { %>

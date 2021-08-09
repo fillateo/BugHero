@@ -16,7 +16,6 @@ router.get('/:projectId/new', isAuthenticated, async (req, res) => {
   })
 })
 
-
 // @desc    Store issue
 // @route   GET /issues/projectId
 router.post('/:projectId', isAuthenticated, async (req, res) => {
@@ -32,11 +31,6 @@ router.post('/:projectId', isAuthenticated, async (req, res) => {
   }
 
 })
-
-
-
-
-
 
 // @desc    Show issue details
 // @route   GET /issues/:projectId/details/:id
@@ -79,14 +73,14 @@ router.get('/:projectId/details/:id/:page', isAuthenticated, async (req, res) =>
               pages: Math.ceil(count / perPage),
               search: req.query.search,
               commentsLength,
+            })
+
           })
 
         })
 
-    })
-
     } else {
-    comments = await Comment.find({ issue: issue })
+      comments = await Comment.find({ issue: issue })
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .sort('-createdAt')
@@ -121,15 +115,12 @@ router.get('/:projectId/details/:id/:page', isAuthenticated, async (req, res) =>
   }
 })
 
-
-
-
 // @desc    Edit issue
 // @route   GET /issues/:projectId/edit/:id
 router.get('/:projectId/edit/:id', isAuthenticated, async (req, res) => {
   try {
     const issue = await Issue.findOne({
-      _id: req.params.id,
+        _id: req.params.id,
     }).lean()
     const project = await Project.findById(req.params.projectId)
 
