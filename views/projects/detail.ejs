@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <%- include('../layouts/styles') %>
+        <%- include('layouts/styles') %>
+
+    </head>
+
+    <body id="page-top">
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <%- include('../layouts/sidebar') %>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <%- include('../layouts/topbar') %>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- start here -->
+
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800"><%= project.title %></h1>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-dark">Description</h5>
+                                        <p class="text-dark"><%- project.description %><p/>
+                                                <hr>Created <%= moment(project.createdAt).fromNow() %> by <b><%= project.user.displayName %></b>
+                                                <% if (project.createdAt.toString() != project.updatedAt.toString()) { %>
+                                                    <br>(Edited <%= moment(project.updatedAt).fromNow() %>)
+                                                <% } %>
+                                                <br><br>
+                                                <form action="/projects/<%= project._id %>" method="POST">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <a href="/projects/edit/<%= project._id %>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+
+                                                    <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteProjectModal"><i class="fa fa-trash"></i></a>
+
+                                                    <div class="modal fade" id="deleteProjectModal" tabindex="-1" role="dialog" aria-labelledby="deleteProjectModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteProjectModalLabel">Delete this project?</h5>
+                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="btn btn-danger ml-2"><i class="fas fa-user"></i> Assign Users</a>
+                                                </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-title text-dark">Attachments</div>
+
+                                        <form method="POST" action="/fileattachments/<%= project._id %>" enctype="multipart/form-data">
+                                            <div class="form-outline mb-2">
+                                                <label class="form-label" for="customFile">Upload attachments</label>
+                                                <input type="file" name="file" class="form-control" id="customFile" />
+                                            </div>
+                                            <button type="submit" class="btn btn-sm btn-success mb-2">Upload</button>
+                                        </form>
+
+                                        <div class="row no-gutters align-items-center">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">File</th>
+                                                        <th scope="col">Options</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% for (let i = 0; i < fileAttachments.length; i++) { %>
+                                                        <tr>
+                                                            <td><a href="<%= fileAttachments[i].file %>"> File <%= i + 1 %></td>
+                                                            <td>
+
+                                                                <form action="/fileattachments/<%= fileAttachments[i]._id %>" method="POST">
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <a href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+
+
+                                                                    <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteFileModal"><i class="fa fa-trash"></i></a>
+
+                                                                    <div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="deleteFileModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="deleteFileModalLabel">Delete this file?</h5>
+                                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </form>
+
+                                                            </td>
+                                                        </tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/issues/<%= project._id %>/new" class="btn btn-primary mb-4"><i class="fas fa-plus"></i> New Issue</a>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Issues</h6>
+                            </div>
+                            <div class="card-body">
+                                <% if (issues.length > 0) { %>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Issues</th>
+                                                    <th>Priority</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Issues</th>
+                                                    <th>Priority</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <% for (let i = 0; i < issues.length; i++) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/issues/<%= project._id %>/details/<%= issues[i]._id %>/1" class="text-dark"> <%= issues[i].title %>
+                                                            <% if (issues[i].type == 'Bug') { %>
+                                                                <button class="btn btn-sm btn-danger btn-round"><%= issues[i].type %></button>
+                                                            <% } if (issues[i].type == 'Feature') { %>
+                                                                <button class="btn btn-sm btn-warning btn-round"><%= issues[i].type %></button>
+
+                                                            <% } if (issues[i].type == 'Discussion') { %>
+                                                                <button class="btn btn-sm btn-info btn-round"><%= issues[i].type %></button>
+                                                            <% } %>
+                                                            </a>
+                                                            <p class="text-sm">Created at <%= moment(issues[i].createdAt).format('Do MMMM, YYYY') %> by <%= issues[i].user.displayName %></p>
+                                                        </td>
+                                                        <td>
+                                                            <% if (issues[i].priority == 'None') { %>
+                                                                <button class="btn btn-sm btn-info btn-round"><%= issues[i].priority %></button>
+                                                            <% } if (issues[i].priority == 'Low') { %>
+                                                                <button class="btn btn-sm btn-success btn-round"><%= issues[i].priority %></button>
+                                                            <% } if (issues[i].priority == 'Medium') { %>
+                                                                <button class="btn btn-sm btn-warning btn-round"><%= issues[i].priority %></button>
+                                                            <% } if (issues[i].priority == 'High') { %>
+                                                                <button class="btn btn-sm btn-danger btn-round"><%= issues[i].priority %></button>
+                                                            <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <% if (issues[i].status == 'Open') { %>
+                                                                <button class="btn btn-sm btn-success"><i class="fa fa-fw fa-cog" aria-hidden="true"></i><%= issues[i].status %></button></td>
+                                                    <% } if (issues[i].status == 'Closed') { %>
+                                                        <button class="btn btn-sm btn-danger"><i class="fa fa-check-circle" aria-hidden="true"></i> <%= issues[i].status %></button></td>
+                                                <% } %>
+                                                    </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <% } else { %>
+                                    This project have no issues!
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <%- include('../layouts/footer') %>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <%- include('../layouts/scrollToTop') %>
+
+        <!-- Logout Modal-->
+        <%- include('../layouts/logoutModal') %>
+
+        <%- include('../layouts/scripts') %>
+        <%- include('layouts/scripts') %>
+    </body>
+
+</html>

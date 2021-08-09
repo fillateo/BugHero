@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <%- include('../layouts/styles') %>
+
+    </head>
+
+    <body id="page-top">
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <%- include('../layouts/sidebar') %>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <%- include('../layouts/topbar') %>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- start here -->
+
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Projects</h1>
+                            <a href="/projects/new" class="btn btn-primary"><i class="fas fa-plus"></i> New Project</a>
+                        </div>
+
+                        <form class="mb-4">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search projects...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <% if (search.length > 0) { %>
+                            <h4 class="mb-2">Search for: <%= search %></h4>
+                        <% } %>
+
+                        <div class="row">
+                            <% if (projects.length > 0) { %>
+                                <% for (let i = 0; i < projects.length; i++) { %>
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3" style="color: #5a5c69; font-weight: bold;"><%= projects[i].title %></h5>
+                                            <hr/>
+                                            <p class="card-text" style="color: #5a5c69">
+                                                <%- projects[i].description %>
+                                            </p>
+                                            <a href="/projects/details/<%= projects[i]._id %>" class="btn btn-primary">Details</a>
+                                        </div>
+                                        <div class="card-footer text-muted" style="background-color: white">Created at <%= moment(projects[i].createdAt).format('Do MMMM, YYYY') %> <br>by <%= projects[i].user.displayName %></div>
+                                    </div>
+                                </div>
+                            <% } %>
+                            <% } else { %>
+                                <div class="col-xl-12 col-md-12 mb-4">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <h3 class="card-text text-dark"> You don't have any project.</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <% if (pages > 0) { %>
+                            <nav aria-label="...">
+                            <ul class="pagination">
+                                <% if (current == 1) { %>
+                                    <li class="page-item disabled"><a class="page-link">First</a></li>
+                                <% } else { %>
+                                    <li class="page-item"><a class="page-link" href="/projects/1">First</a></li>
+                                <% } %>
+                                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                                <% if (i !== 1) { %>
+                                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                                <% } %>
+                                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                                    <% if (i == current) { %>
+                                        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                                    <% } else { %>
+                                        <li class="page-item"><a class="page-link" href="/projects/<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                    <% if (i == Number(current) + 4 && i < pages) { %>
+                                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                                    <% } %>
+                                <% } %>
+                                <% if (current == pages) { %>
+                                    <li class="page-item disabled"><a class="page-link">Last</a></li>
+                                <% } else { %>
+                                    <li class="page-item"><a class="page-link" href="/projects/<%= pages %>">Last</a></li>
+                                <% } %>
+                            </ul>
+                            </nav>
+                        <% } %>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                    </div>
+                    <!-- End of Main Content -->
+
+                    <!-- Footer -->
+                    <%- include('../layouts/footer') %>
+                    <!-- End of Footer -->
+
+                </div>
+                <!-- End of Content Wrapper -->
+
+            </div>
+            <!-- End of Page Wrapper -->
+
+            <!-- Scroll to Top Button-->
+            <%- include('../layouts/scrollToTop') %>
+
+            <!-- Logout Modal-->
+            <%- include('../layouts/logoutModal') %>
+
+            <%- include('../layouts/scripts') %>
+    </body>
+
+</html>

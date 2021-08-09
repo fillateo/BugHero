@@ -1,0 +1,145 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title text-dark">Comments: <%= commentsLength %></h5>
+
+
+
+                        <form class="mb-4">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search comments...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+
+    <% if (search.length > 0) { %>
+      <h7> Search for: <%= search %> </h7>
+    <% } %>
+      <% if (comments.length > 0) { %>
+      <p class="card-text">
+
+        <% if (comments.length > 0) { %>
+          <% for (let i = 0; i < comments.length; i++) { %>
+            <div class="row mb-4">
+              <div class="col-2">
+                <img src="<%= comments[i].user.image %>"
+                class="img-fluid shadow-1-strong rounded" alt="" />
+              </div>
+
+              <div class="col-10">
+                <p class="mb-2"><strong><%= comments[i].user.displayName %></strong></p>
+                <p class="mb-2 text-sm">Commented <%= moment(comments[i].createdAt).fromNow() %></p>
+
+                <% if (comments[i].createdAt.toString() != comments[i].updatedAt.toString()) { %>
+                  <p class="mb-2 text-sm">Edited <%= moment(comments[i].updatedAt).fromNow() %></p>
+                <% } %>
+                <p>
+                  <%- comments[i].comment %>
+                </p>
+                <% if (comments[i].user._id.toString() == user._id) { %>
+                  <form action="/comments/<%= comments[i]._id %>" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+
+                    <a class="btn btn-sm btn-danger btn-round" href="#" data-toggle="modal" data-target="#deleteCommentModal"><i class="fa fa-trash"></i></a>
+
+                    <div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="deleteCommentModalLabel">Delete this comment?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <a href="/comments/edit/<%= comments[i]._id %>" class="btn btn-sm btn-info btn-round"><i class="fa fa-edit"></i></a>
+                  </form>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+        <% } %>
+
+      </p>
+    <% } %>
+    <hr/>
+
+    <!-- pagination -->
+    <% if (pages > 0) { %>
+      <nav aria-label="...">
+        <ul class="pagination">
+          <% if (current == 1) { %>
+            <li class="page-item disabled"><a class="page-link">First</a></li>
+          <% } else { %>
+            <li class="page-item"><a class="page-link" href="/issues/<%= project._id %>/details/<%= issue._id %>/1">First</a></li>
+          <% } %>
+          <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+          <% if (i !== 1) { %>
+            <li class="page-item disabled"><a class="page-link">...</a></li>
+          <% } %>
+          <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+            <% if (i == current) { %>
+              <li class="page-item active"><a class="page-link"><%= i %></a></li>
+            <% } else { %>
+              <li class="page-item"><a class="page-link" href="/issues/<%= project._id %>/details/<%= issue._id %>/<%= i %>"><%= i %></a></li>
+            <% } %>
+            <% if (i == Number(current) + 4 && i < pages) { %>
+              <li class="page-item disabled"><a class="page-link">...</a></li>
+            <% } %>
+          <% } %>
+          <% if (current == pages) { %>
+            <li class="page-item disabled"><a class="page-link">Last</a></li>
+          <% } else { %>
+            <li class="page-item"><a class="page-link" href="/issues/<%= project._id %>/details/<%= issue._id %>/<%= pages %>">Last</a></li>
+          <% } %>
+        </ul>
+      </nav>
+    <% } %>
+
+    <!--Section: Reply-->
+    <section>
+      <p class="text-center"><strong>New Comment</strong></p>
+
+      <form method="POST" action="/comments/<%= issue._id %>">
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+          <textarea class="form-control" name="comment" id="comment" rows="4" required></textarea>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">
+          Comment
+        </button>
+      </form>
+
+      <form method="POST" action="/issues/<%= project._id %>/<%= issue._id %>">
+        <input type="hidden" name="_method" value="PUT">
+        <% if (issue.status == 'Open') { %>
+          <input type="hidden" name="status" value="Closed">
+          <button type="submit" class="btn btn-danger btn-block mb-4">
+            Close Issue
+          </button>
+        <% } if (issue.status == 'Closed') { %>
+          <input type="hidden" name="status" value="Open">
+          <button type="submit" class="btn btn-success btn-block mb-4">
+            Open Issue
+          </button>
+        <% } %>
+      </form>
+    </section>
+    <!--Section: Reply-->
+
+  </div>
+</div>
