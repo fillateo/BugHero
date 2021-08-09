@@ -101,8 +101,6 @@ router.get('/:projectId/details/:id/:page', isAuthenticated, async (req, res) =>
 
             if (err) return next(err)
 
-            console.log(comments)
-
             res.render('issues/detail', {
               project,
               issue,
