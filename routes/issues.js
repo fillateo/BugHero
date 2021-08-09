@@ -163,7 +163,7 @@ router.put('/:projectId/:id', isAuthenticated, async (req, res) => {
 
       })
 
-      res.redirect(`/issues/${req.params.projectId}/details/${req.params.id}/1`)
+      res.redirect(`/projects/details/${req.params.projectId}`)
 
     }
 
