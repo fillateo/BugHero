@@ -57,7 +57,7 @@ router.get('/:projectId/details/:id/:page', isAuthenticated, async (req, res) =>
         .populate('user')
         .lean()
         .exec(function(err, comments) {
-          Comment.count().exec( function(err, count) {
+          Comment.find({ issue: issue }).count().exec( function(err, count) {
 
             if (!issue) {
               return res.send("404")
@@ -87,7 +87,7 @@ router.get('/:projectId/details/:id/:page', isAuthenticated, async (req, res) =>
         .populate('user')
         .lean()
         .exec(function(err, comments) {
-          Comment.count().exec( function(err, count) {
+          Comment.find({ issue: issue }).count().exec( function(err, count) {
 
             if (!issue) {
               return res.send("404")
