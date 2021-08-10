@@ -51,6 +51,17 @@ router.post('/:projectId/', isAuthenticated, upload.single('file'), async (req, 
 
 })
 
+// @desc    Download project file attachment
+// @route   GET /issueattachments/?file=blqbla
+router.get('/', isAuthenticated, async (req, res) => {
+  try {
+    res.download(req.query.file)
+  } catch (err) {
+    conslole.log(err)
+    res.render('error/500')
+  }
+})
+
 // @desc    Delete project file attachment
 // @route   DELETE /issueattachments/:id
 router.delete('/:id', isAuthenticated, async (req, res) => {

@@ -102,14 +102,11 @@
                                                 <tbody>
                                                     <% for (let i = 0; i < fileAttachments.length; i++) { %>
                                                         <tr>
-                                                            <td><a href="<%= fileAttachments[i].file %>"> File <%= i + 1 %></td>
+                                                            <td><a href="/fileattachments?file=<%= fileAttachments[i].file %>"> File <%= i + 1 %></td>
                                                             <td>
 
                                                                 <form action="/fileattachments/<%= fileAttachments[i]._id %>" method="POST">
                                                                     <input type="hidden" name="_method" value="DELETE">
-                                                                    <a href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
-
-
                                                                     <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteFileModal"><i class="fa fa-trash"></i></a>
 
                                                                     <div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="deleteFileModalLabel"
