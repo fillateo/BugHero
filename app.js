@@ -24,8 +24,8 @@ const app = express()
 app.use((req, res, next) => {
   res.locals.moment = moment
   res.locals.edit = null
-  next();
-});
+  next()
+})
 
 // view engine ejs
 app.set('view engine', 'ejs')
@@ -33,17 +33,19 @@ app.set('view engine', 'ejs')
 // parsing data in json
 app.use(bodyParser.json())
 
-// for parsing application/xwww-
+// or parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Method override
 app.use(
-  methodOverride(function (req, res) {
+  /*eslint-disable */
+  methodOverride( (req, res) => {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
       // look in urlencoded POST bodies and delete it
-      let method = req.body._method
+      const method = req.body._method
       delete req.body._method
       return method
+  /* eslint-enable */
     }
   })
 )
@@ -89,4 +91,7 @@ app.use('/comments', require('./routes/comments'))
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`))
+app.listen(
+  PORT,
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+)

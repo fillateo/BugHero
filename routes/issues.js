@@ -1,4 +1,5 @@
 const express = require('express')
+
 const router = express.Router()
 const { isAuthenticated } = require('../middleware/auth')
 
@@ -12,7 +13,7 @@ router.get('/:projectId/new', isAuthenticated, async (req, res) => {
   const project = await Project.findById(req.params.projectId)
 
   res.render('issues/new', {
-    project
+    project,
   })
 })
 
@@ -24,103 +25,103 @@ router.post('/:projectId', isAuthenticated, async (req, res) => {
     req.body.user = req.user
     await Issue.create(req.body)
     res.redirect(`/projects/details/${req.params.projectId}`)
-
   } catch (error) {
     console.log(error)
     res.render('error/500')
   }
-
 })
 
 // @desc    Show issue details
 // @route   GET /issues/:projectId/details/:id
-router.get('/:projectId/details/:id/:page', isAuthenticated, async (req, res) => {
-  try {
-    const issue = await Issue.findById(req.params.id)
-      .populate('user project')
-      .lean()
-    const project = await Project.findById(req.params.projectId)
-      .populate('user')
-      .lean()
-    const commentsLength = await Comment.find({ issue: issue }).count()
-
-    let perPage = 10
-    let page = req.params.page || 1
-
-    let comments = null
-
-    if (req.query.search) {
-      comments = await Comment.find({ issue: issue, $text: {$search: req.query.search}})
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-        .sort('-createdAt')
+router.get(
+  '/:projectId/details/:id/:page',
+  isAuthenticated,
+  async (req, res) => {
+    try {
+      const issue = await Issue.findById(req.params.id)
+        .populate('user project')
+        .lean()
+      const project = await Project.findById(req.params.projectId)
         .populate('user')
         .lean()
-        .exec(function(err, comments) {
-          Comment.find({ issue: issue }).count().exec( function(err, count) {
+      const commentsLength = await Comment.find({ issue: issue }).count()
 
-            if (!issue) {
-              return res.send("404")
-            }
+      const perPage = 10
+      const page = req.params.page || 1
 
-            if (err) return next(err)
-
-            res.render('issues/detail', {
-              project,
-              issue,
-              comments,
-              current: page,
-              pages: Math.ceil(count / perPage),
-              search: req.query.search,
-              commentsLength,
-            })
-
-          })
-
+      if (req.query.search) {
+        Comment.find({
+          issue: issue,
+          $text: { $search: req.query.search },
         })
+          .skip(perPage * page - perPage)
+          .limit(perPage)
+          .sort('-createdAt')
+          .populate('user')
+          .lean()
+          .exec((error, comments) => {
+            Comment.find({ issue: issue })
+              .count()
+              .exec((err, count) => {
+                if (!issue) {
+                  return res.send('404')
+                }
 
-    } else {
-      comments = await Comment.find({ issue: issue })
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-        .sort('-createdAt')
-        .populate('user')
-        .lean()
-        .exec(function(err, comments) {
-          Comment.find({ issue: issue }).count().exec( function(err, count) {
+                if (err) throw err
 
-            if (!issue) {
-              return res.send("404")
-            }
-
-            if (err) return next(err)
-
-            res.render('issues/detail', {
-              project,
-              issue,
-              comments,
-              current: page,
-              pages: Math.ceil(count / perPage),
-              search: "",
-              commentsLength,
-            })
+                res.render('issues/detail', {
+                  project,
+                  issue,
+                  comments,
+                  current: page,
+                  pages: Math.ceil(count / perPage),
+                  search: req.query.search,
+                  commentsLength,
+                })
+              })
           })
+      } else {
+        Comment.find({ issue: issue })
+          .skip(perPage * page - perPage)
+          .limit(perPage)
+          .sort('-createdAt')
+          .populate('user')
+          .lean()
+          .exec((error, comments) => {
+            Comment.find({ issue: issue })
+              .count()
+              .exec((err, count) => {
+                if (!issue) {
+                  return res.send('404')
+                }
 
-        })
+                if (err) throw err
+
+                res.render('issues/detail', {
+                  project,
+                  issue,
+                  comments,
+                  current: page,
+                  pages: Math.ceil(count / perPage),
+                  search: '',
+                  commentsLength,
+                })
+              })
+          })
+      }
+    } catch (error) {
+      console.log(error)
+      res.send('404')
     }
-
-  } catch (error) {
-    console.log(error)
-    res.send("404")
   }
-})
+)
 
 // @desc    Edit issue
 // @route   GET /issues/:projectId/edit/:id
 router.get('/:projectId/edit/:id', isAuthenticated, async (req, res) => {
   try {
     const issue = await Issue.findOne({
-        _id: req.params.id,
+      _id: req.params.id,
     }).lean()
     const project = await Project.findById(req.params.projectId)
 
@@ -136,7 +137,6 @@ router.get('/:projectId/edit/:id', isAuthenticated, async (req, res) => {
         issue,
       })
     }
-
   } catch (err) {
     console.error(err)
     return res.render('error/500')
@@ -155,18 +155,14 @@ router.put('/:projectId/:id', isAuthenticated, async (req, res) => {
 
     if (issue.user != req.user.id) {
       res.redirect('/projects')
-
     } else {
-      issue = await Issue.findOneAndUpdate({ _id: req.params.id  }, req.body, {
+      issue = await Issue.findOneAndUpdate({ _id: req.params.id }, req.body, {
         new: true,
         runValidators: true,
-
       })
 
       res.redirect(`/projects/details/${req.params.projectId}`)
-
     }
-
   } catch (err) {
     console.error(err)
     return res.render('error/500')

@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/fillateo/BugHero#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^4.4.1",
     "dotenv": "^10.0.0",
@@ -44,11 +45,19 @@
     "chai": "^4.3.4",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "jest": "^27.0.6",
     "mocha": "^9.0.3",
     "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
     "supertest": "^6.1.4"
   }
 }

@@ -1,4 +1,5 @@
 const express = require('express')
+
 const router = express.Router()
 const { isAuthenticated } = require('../middleware/auth')
 
@@ -28,22 +29,19 @@ router.post('/', isAuthenticated, async (req, res) => {
 // @desc    Show all projects
 // @route   GET /projects/:page
 router.get('/:page', isAuthenticated, async (req, res) => {
-
   try {
-    let perPage = 20
-    let page = req.params.page || 1
-
-    let projects = null
+    const perPage = 20
+    const page = req.params.page || 1
 
     if (req.query.search) {
-      projects = await Project.find({$text: {$search: req.query.search}})
-        .skip((perPage * page) - perPage)
+      Project.find({ $text: { $search: req.query.search } })
+        .skip(perPage * page - perPage)
         .limit(perPage)
         .populate('user')
         .lean()
-        .exec(function(err, projects) {
-          Project.count().exec(function(err, count) {
-            if (err) return next(err)
+        .exec((error, projects) => {
+          Project.count().exec((err, count) => {
+            if (err) throw err
             res.render('projects/list', {
               projects,
               current: page,
@@ -51,29 +49,25 @@ router.get('/:page', isAuthenticated, async (req, res) => {
               search: req.query.search,
             })
           })
-
         })
     } else {
-
-      projects = await Project.find({})
-        .skip((perPage * page) - perPage)
+      Project.find({})
+        .skip(perPage * page - perPage)
         .limit(perPage)
         .populate('user')
         .lean()
-        .exec(function(err, projects) {
-          Project.count().exec(function(err, count) {
-            if (err) return next(err)
+        .exec((error, projects) => {
+          Project.count().exec((err, count) => {
+            if (err) throw err
             res.render('projects/list', {
               projects,
               current: page,
               pages: Math.ceil(count / perPage),
-              search: "",
+              search: '',
             })
           })
-
         })
     }
-
   } catch (error) {
     console.log(error)
     res.render('error/500')
@@ -95,17 +89,16 @@ router.get('/details/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!project) {
-      return res.send("404")
-    } else {
-      res.render('projects/detail', {
-        project,
-        issues,
-        fileAttachments,
-      })
+      return res.send('404')
     }
+    res.render('projects/detail', {
+      project,
+      issues,
+      fileAttachments,
+    })
   } catch (error) {
     console.log(error)
-    res.send("404")
+    res.send('404')
   }
 })
 
@@ -128,7 +121,6 @@ router.get('/edit/:id', isAuthenticated, async (req, res) => {
         project,
       })
     }
-
   } catch (err) {
     console.error(err)
     return res.render('error/500')
@@ -147,18 +139,18 @@ router.put('/:id', isAuthenticated, async (req, res) => {
 
     if (project.user != req.user.id) {
       res.redirect('/projects/1')
-
     } else {
-      project = await Project.findOneAndUpdate({ _id: req.params.id  }, req.body, {
-        new: true,
-        runValidators: true,
-
-      })
+      project = await Project.findOneAndUpdate(
+        { _id: req.params.id },
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      )
 
       res.redirect(`/projects/details/${req.params.id}`)
-
     }
-
   } catch (err) {
     console.error(err)
     return res.render('error/500')
@@ -169,7 +161,7 @@ router.put('/:id', isAuthenticated, async (req, res) => {
 // @route   DELETE /projects/:id
 router.delete('/:id', isAuthenticated, async (req, res) => {
   try {
-    let project = await Project.findById(req.params.id).lean()
+    const project = await Project.findById(req.params.id).lean()
 
     if (!project) {
       return res.send('error/404')
@@ -178,7 +170,7 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
     if (project.user != req.user.id) {
       res.redirect('/projects/1')
     } else {
-      await Project.remove({ _id: req.params.id  })
+      await Project.remove({ _id: req.params.id })
       await Issue.remove({ project: project })
       res.redirect('/projects/1')
     }
