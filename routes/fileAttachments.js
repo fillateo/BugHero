@@ -69,7 +69,7 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!file) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (file.user._id != req.user.id) {

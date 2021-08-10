@@ -64,7 +64,7 @@ router.get(
               .count()
               .exec((err, count) => {
                 if (!issue) {
-                  return res.send('404')
+                  return res.render('error/404')
                 }
 
                 if (err) throw err
@@ -92,7 +92,7 @@ router.get(
               .count()
               .exec((err, count) => {
                 if (!issue) {
-                  return res.send('404')
+                  return res.render('error/404')
                 }
 
                 if (err) throw err
@@ -111,7 +111,7 @@ router.get(
       }
     } catch (error) {
       console.log(error)
-      res.send('404')
+      res.render('error/404')
     }
   }
 )
@@ -126,7 +126,7 @@ router.get('/:projectId/edit/:id', isAuthenticated, async (req, res) => {
     const project = await Project.findById(req.params.projectId)
 
     if (!issue) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (issue.user != req.user.id) {
@@ -150,7 +150,7 @@ router.put('/:projectId/:id', isAuthenticated, async (req, res) => {
     let issue = await Issue.findById(req.params.id).lean()
 
     if (!issue) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (issue.user != req.user.id) {

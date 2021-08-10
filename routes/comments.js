@@ -37,7 +37,7 @@ router.get('/edit/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!comment) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (issue.user._id.toString() != req.user._id) {
@@ -65,11 +65,11 @@ router.put('/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!comment) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (comment.user._id.toString() != req.user._id) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     console.log('Lewat')
@@ -97,11 +97,11 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!comment) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (comment.user._id.toString() != req.user._id) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     await Comment.remove({ _id: req.params.id })

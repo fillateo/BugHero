@@ -88,6 +88,10 @@ app.use('/projects', require('./routes/projects'))
 app.use('/issues', require('./routes/issues'))
 app.use('/fileattachments', require('./routes/fileAttachments'))
 app.use('/comments', require('./routes/comments'))
+// render if path not found
+app.use((req, res) => {
+  res.render('error/404')
+})
 
 const PORT = process.env.PORT || 3000
 

@@ -89,7 +89,7 @@ router.get('/details/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!project) {
-      return res.send('404')
+      return res.render('error/404')
     }
     res.render('projects/detail', {
       project,
@@ -98,7 +98,7 @@ router.get('/details/:id', isAuthenticated, async (req, res) => {
     })
   } catch (error) {
     console.log(error)
-    res.send('404')
+    res.render('error/404')
   }
 })
 
@@ -111,7 +111,7 @@ router.get('/edit/:id', isAuthenticated, async (req, res) => {
     }).lean()
 
     if (!project) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (project.user != req.user.id) {
@@ -134,7 +134,7 @@ router.put('/:id', isAuthenticated, async (req, res) => {
     let project = await Project.findById(req.params.id).lean()
 
     if (!project) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (project.user != req.user.id) {
@@ -164,7 +164,7 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
     const project = await Project.findById(req.params.id).lean()
 
     if (!project) {
-      return res.send('error/404')
+      return res.render('error/404')
     }
 
     if (project.user != req.user.id) {
