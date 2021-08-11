@@ -48,32 +48,34 @@
                                                     <br>(Edited <%= moment(project.updatedAt).fromNow() %>)
                                                 <% } %>
                                                 <br><br>
-                                                <form action="/projects/<%= project._id %>" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="/projects/edit/<%= project._id %>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                                                <% if (project.user._id.toString() == user._id) { %>
+                                                    <form action="/projects/<%= project._id %>" method="POST">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <a href="/projects/edit/<%= project._id %>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
 
-                                                    <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteProjectModal"><i class="fa fa-trash"></i></a>
+                                                        <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteProjectModal"><i class="fa fa-trash"></i></a>
 
-                                                    <div class="modal fade" id="deleteProjectModal" tabindex="-1" role="dialog" aria-labelledby="deleteProjectModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="deleteProjectModalLabel">Delete this project?</h5>
-                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                        <div class="modal fade" id="deleteProjectModal" tabindex="-1" role="dialog" aria-labelledby="deleteProjectModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="deleteProjectModalLabel">Delete this project?</h5>
+                                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <a href="#" class="btn btn-danger ml-2"><i class="fas fa-user"></i> Assign Users</a>
-                                                </form>
+                                                        <a href="#" class="btn btn-danger ml-2"><i class="fas fa-user"></i> Assign Users</a>
+                                                    </form>
+                                                <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -82,16 +84,17 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="card-title text-dark">Attachments</div>
-
-                                        <form method="POST" action="/fileattachments/<%= project._id %>" enctype="multipart/form-data">
-                                            <div class="form-outline mb-2">
-                                                <label class="form-label" for="customFile">Upload attachments</label>
-                                                <input type="file" name="file" class="form-control" id="customFile" />
-                                            </div>
-                                            <button type="submit" class="btn btn-sm btn-success mb-2">Upload</button>
-                                        </form>
-
+                                        <% if (project.user._id.toString() == user._id) { %>
+                                            <form method="POST" action="/fileattachments/<%= project._id %>" enctype="multipart/form-data">
+                                                <div class="form-outline mb-2">
+                                                    <label class="form-label" for="customFile">Upload attachments</label>
+                                                    <input type="file" name="file" class="form-control" id="customFile" required/>
+                                                </div>
+                                                <button type="submit" class="btn btn-sm btn-success mb-2">Upload</button>
+                                            </form>
+                                        <% } %>
                                         <div class="row no-gutters align-items-center">
+                                                <% if (fileAttachments.length > 0) { %>
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -103,37 +106,43 @@
                                                     <% for (let i = 0; i < fileAttachments.length; i++) { %>
                                                         <tr>
                                                             <td><a href="/fileattachments?file=<%= fileAttachments[i].file %>"> File <%= i + 1 %></td>
-                                                            <td>
 
-                                                                <form action="/fileattachments/<%= fileAttachments[i]._id %>" method="POST">
-                                                                    <input type="hidden" name="_method" value="DELETE">
-                                                                    <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteFileModal"><i class="fa fa-trash"></i></a>
+                                                            <% if (fileAttachments[i].user._id.toString() == user._id) { %>
+                                                                <td>
 
-                                                                    <div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="deleteFileModalLabel"
-                                                                        aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="deleteFileModalLabel">Delete this file?</h5>
-                                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">×</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                                    <form action="/fileattachments/<%= fileAttachments[i]._id %>" method="POST">
+                                                                        <input type="hidden" name="_method" value="DELETE">
+                                                                        <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteFileModal"><i class="fa fa-trash"></i></a>
+
+                                                                        <div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="deleteFileModalLabel"
+                                                                            aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="deleteFileModalLabel">Delete this file?</h5>
+                                                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">×</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                </form>
+                                                                    </form>
 
-                                                            </td>
+                                                                </td>
+                                                            <% } %>
                                                         </tr>
                                                     <% } %>
                                                 </tbody>
                                             </table>
+                                            <% } else { %>
+                                                Empty!
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>

@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"bugHero.fileattachments"}],"uuid":"5a03a27c258c4e4fb400a7ccad7b269b"}

@@ -6,6 +6,10 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const passport = require('passport')
 const session = require('express-session')
+const expressValidator = require('express-validator')
+// const expressStatusMonitor = require('express-status-monitor')
+const compression = require('compression')
+const flash = require('express-flash')
 const MongoStore = require('connect-mongo')
 const moment = require('moment')
 const connectMongoDB = require('./config/db')
@@ -19,6 +23,13 @@ require('./config/passport')(passport)
 connectMongoDB()
 
 const app = express()
+
+// expresss helper packages
+// app.use(expressStatusMonitor())
+// express-validator
+app.use(expressValidator())
+app.use(compression())
+app.use(flash())
 
 // send data to ejs
 app.use((req, res, next) => {
@@ -73,6 +84,8 @@ app.use(passport.session())
 
 app.use((req, res, next) => {
   res.locals.user = req.user
+  res.locals.success = req.flash('success')
+
   next()
 })
 

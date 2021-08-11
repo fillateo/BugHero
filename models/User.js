@@ -5,24 +5,28 @@ const { Schema } = mongoose
 const UserSchema = new Schema({
   googleId: {
     type: String,
-    required: true,
+    //   required: true,
   },
   displayName: {
     type: String,
-    required: true,
+    //  required: true,
   },
   firstName: {
     type: String,
-    required: true,
+    //    required: true,
   },
   lastName: {
     type: String,
-    required: true,
+    //  required: true,
   },
   image: {
     type: String,
   },
-
+  email: {
+    type: String,
+    required: true,
+  },
+  password: String,
   createdAt: {
     type: Date,
     default: Date.now,

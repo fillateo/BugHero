@@ -154,7 +154,7 @@ router.put('/:projectId/:id', isAuthenticated, async (req, res) => {
     }
 
     if (issue.user != req.user.id) {
-      res.redirect('/projects')
+      res.redirect('/projects/1')
     } else {
       issue = await Issue.findOneAndUpdate({ _id: req.params.id }, req.body, {
         new: true,
