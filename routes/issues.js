@@ -27,7 +27,7 @@ router.post('/:projectId', isAuthenticated, async (req, res) => {
     res.redirect(`/projects/details/${req.params.projectId}`)
   } catch (error) {
     console.log(error)
-    res.render('error/500')
+    res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 
@@ -64,7 +64,9 @@ router.get(
               .count()
               .exec((err, count) => {
                 if (!issue) {
-                  return res.render('error/404')
+                  return res.render('error/404', {
+                    layout: 'layouts/layoutError',
+                  })
                 }
 
                 if (err) throw err
@@ -92,7 +94,9 @@ router.get(
               .count()
               .exec((err, count) => {
                 if (!issue) {
-                  return res.render('error/404')
+                  return res.render('error/404', {
+                    layout: 'layouts/layoutError',
+                  })
                 }
 
                 if (err) throw err
@@ -111,7 +115,7 @@ router.get(
       }
     } catch (error) {
       console.log(error)
-      res.render('error/404')
+      res.render('error/404', { layout: 'layouts/layoutError' })
     }
   }
 )
@@ -126,7 +130,7 @@ router.get('/:projectId/edit/:id', isAuthenticated, async (req, res) => {
     const project = await Project.findById(req.params.projectId)
 
     if (!issue) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     if (issue.user != req.user.id) {
@@ -139,7 +143,7 @@ router.get('/:projectId/edit/:id', isAuthenticated, async (req, res) => {
     }
   } catch (err) {
     console.error(err)
-    return res.render('error/500')
+    return res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 
@@ -150,7 +154,7 @@ router.put('/:projectId/:id', isAuthenticated, async (req, res) => {
     let issue = await Issue.findById(req.params.id).lean()
 
     if (!issue) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     if (issue.user != req.user.id) {
@@ -165,7 +169,7 @@ router.put('/:projectId/:id', isAuthenticated, async (req, res) => {
     }
   } catch (err) {
     console.error(err)
-    return res.render('error/500')
+    return res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 

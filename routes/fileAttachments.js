@@ -19,7 +19,7 @@ router.post(
       const file = req.file.path
 
       if (!file) {
-        res.render('error/400')
+        res.render('error/400', { layout: 'layouts/layoutError' })
       }
 
       req.body.project = await Project.findById(req.params.projectId)
@@ -30,7 +30,7 @@ router.post(
       res.redirect(`/projects/details/${req.params.projectId}`)
     } catch (error) {
       console.log(error)
-      res.render('error/500')
+      res.render('error/500', { layout: 'layouts/layoutError' })
     }
   }
 )
@@ -42,7 +42,7 @@ router.get('/', isAuthenticated, async (req, res) => {
     res.download(req.query.file)
   } catch (err) {
     console.log(err)
-    res.render('error/500')
+    res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 
@@ -55,7 +55,7 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!file) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     if (file.user._id != req.user.id) {
@@ -67,7 +67,7 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
     }
   } catch (err) {
     console.error(err)
-    return res.render('error/500')
+    return res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 module.exports = router

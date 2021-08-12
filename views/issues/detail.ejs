@@ -1,116 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Issue Detail</h1>
+    <a href="/issues/<%= project._id %>/edit/<%= issue._id %>" class="btn btn-primary"><i class="fas fa-edit"></i> Edit Issue</a>
+    </div>
 
-    <head>
+    <h4 class="mb-4">Project: <%= project.title %></h4>
 
-        <%- include('../layouts/styles') %>
-
-    </head>
-
-    <body id="page-top">
-
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-
-            <!-- Sidebar -->
-            <%- include('../layouts/sidebar') %>
-            <!-- End of Sidebar -->
-
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-
-                <!-- Main Content -->
-                <div id="content">
-
-                    <!-- Topbar -->
-                    <%- include('../layouts/topbar') %>
-                    <!-- End of Topbar -->
-
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
-                        <!-- start here -->
-
-                        <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Issue Detail</h1>
-                            <a href="/issues/<%= project._id %>/edit/<%= issue._id %>" class="btn btn-primary"><i class="fas fa-edit"></i> Edit Issue</a>
-                        </div>
-
-                        <h4 class="mb-4">Project: <%= project.title %></h4>
-
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title text-dark"><%= issue.title %> &nbsp;
-                                    <% if (issue.status == 'Open') { %>
-                                        <button class="btn btn-sm btn-success"><i class="fa fa-fw fa-cog" aria-hidden="true"></i><%= issue.status %></button></td>
-                                <% } if (issue.status == 'Closed') { %>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-check-circle" aria-hidden="true"></i> <%= issue.status %></button></td>
-                            <% } %>
-                                </h5>
-                                <p class="card-text">
-                                    <% if (issue.type == 'Bug') { %>
-                                        <button class="btn btn-sm btn-danger btn-round"><%= issue.type %></button>
-                                    <% } if (issue.type == 'Feature') { %>
-                                        <button class="btn btn-sm btn-warning btn-round"><%= issue.type %></button>
-
-                                    <% } if (issue.type == 'Discussion') { %>
-                                        <button class="btn btn-sm btn-info btn-round"><%= issue.type %></button>
-                                    <% } %>
-                                    &nbsp;
-                                    <% if (issue.priority == 'None') { %>
-                                        <button class="btn btn-sm btn-info btn-round"><%= issue.priority %></button>
-                                    <% } if (issue.priority == 'Low') { %>
-                                        <button class="btn btn-sm btn-success btn-round"><%= issue.priority %></button>
-                                    <% } if (issue.priority == 'Medium') { %>
-                                        <button class="btn btn-sm btn-warning btn-round"><%= issue.priority %></button>
-                                    <% } if (issue.priority == 'High') { %>
-                                        <button class="btn btn-sm btn-danger btn-round"><%= issue.priority %></button>
-                                    <% } %>
-                                    <p class="mt-4"><%- issue.description %></p>
-                                </p>
-                                <hr/>
-                                <p class="text-sm"> Created <%= moment(issue.createdAt).fromNow() %> by <%= issue.user.displayName %>
-
-                                <% if (issue.createdAt.toString() != issue.updatedAt.toString()) { %>
-                                    <p class="text-sm"> (Edited <%= moment(issue.updatedAt).fromNow() %>) %>
-                                <% } %>
-                            </div>
-                        </div>
-
-                        <%- include('comment') %>
-
-                    </div>
-                    <!-- /.container-fluid -->
-
-                </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <%- include('../layouts/footer') %>
-                <!-- End of Footer -->
-
-            </div>
-            <!-- End of Content Wrapper -->
-
-        </div>
-        <!-- End of Page Wrapper -->
-
-        <% if (edit) { %>
-            <script>
-                window.scrollTo(0, document.body.scrollHeight);
-                history.scrollRestoration = "manual";
-            </script>
+    <div class="card mb-4">
+    <div class="card-body">
+    <h5 class="card-title text-dark"><%= issue.title %> &nbsp;
+<% if (issue.status == 'Open') { %>
+            <button class="btn btn-sm btn-success"><i class="fa fa-fw fa-cog" aria-hidden="true"></i><%= issue.status %></button></td>
+    <% } if (issue.status == 'Closed') { %>
+                <button class="btn btn-sm btn-danger"><i class="fa fa-check-circle" aria-hidden="true"></i> <%= issue.status %></button></td>
         <% } %>
+    </h5>
+    <p class="card-text">
+    <% if (issue.type == 'Bug') { %>
+                <button class="btn btn-sm btn-danger btn-round"><%= issue.type %></button>
+        <% } if (issue.type == 'Feature') { %>
+                    <button class="btn btn-sm btn-warning btn-round"><%= issue.type %></button>
 
-        <!-- Scroll to Top Button-->
-        <%- include('../layouts/scrollToTop') %>
+            <% } if (issue.type == 'Discussion') { %>
+                        <button class="btn btn-sm btn-info btn-round"><%= issue.type %></button>
+                <% } %>
+    &nbsp;
+<% if (issue.priority == 'None') { %>
+            <button class="btn btn-sm btn-info btn-round"><%= issue.priority %></button>
+    <% } if (issue.priority == 'Low') { %>
+                <button class="btn btn-sm btn-success btn-round"><%= issue.priority %></button>
+        <% } if (issue.priority == 'Medium') { %>
+                    <button class="btn btn-sm btn-warning btn-round"><%= issue.priority %></button>
+            <% } if (issue.priority == 'High') { %>
+                        <button class="btn btn-sm btn-danger btn-round"><%= issue.priority %></button>
+                <% } %>
+    <p class="mt-4"><%- issue.description %></p>
+    </p>
+    <hr/>
+    <p class="text-sm"> Created <%= moment(issue.createdAt).fromNow() %> by <%= issue.user.displayName %>
 
-        <!-- Logout Modal-->
-        <%- include('../layouts/logoutModal') %>
+<% if (issue.createdAt.toString() != issue.updatedAt.toString()) { %>
+            <p class="text-sm"> (Edited <%= moment(issue.updatedAt).fromNow() %>) %>
+        <% } %>
+    </div>
+    </div>
 
-        <%- include('../layouts/scripts') %>
-
-        <%- include('../comments/layouts/scripts') %>
-    </body>
-
-</html>
+    <%- include('comment') %>

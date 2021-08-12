@@ -19,12 +19,12 @@ router.post('/:issueId', isAuthenticated, async (req, res) => {
     res.redirect(`/issues/${issue.project._id}/details/${req.params.issueId}/1`)
   } catch (error) {
     console.log(error)
-    res.render('error/500')
+    res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 
 // @desc    Process Update comment
-// @route   PUT /comments/id
+// @route   GET /comments/id
 router.get('/edit/:id', isAuthenticated, async (req, res) => {
   try {
     const comment = await Comment.findOne({
@@ -37,7 +37,7 @@ router.get('/edit/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!comment) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     if (issue.user._id.toString() != req.user._id) {
@@ -49,7 +49,7 @@ router.get('/edit/:id', isAuthenticated, async (req, res) => {
     }
   } catch (err) {
     console.error(err)
-    return res.render('error/500')
+    return res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 
@@ -65,11 +65,11 @@ router.put('/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!comment) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     if (comment.user._id.toString() != req.user._id) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     console.log('Lewat')
@@ -81,7 +81,7 @@ router.put('/:id', isAuthenticated, async (req, res) => {
     res.redirect(`/issues/${issue.project._id}/details/${issue._id}/1`)
   } catch (err) {
     console.error(err)
-    return res.render('error/500')
+    return res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 
@@ -97,18 +97,18 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
       .lean()
 
     if (!comment) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     if (comment.user._id.toString() != req.user._id) {
-      return res.render('error/404')
+      return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
     await Comment.remove({ _id: req.params.id })
     res.redirect(`/issues/${issue.project._id}/details/${issue._id}/1`)
   } catch (err) {
     console.error(err)
-    return res.render('error/500')
+    return res.render('error/500', { layout: 'layouts/layoutError' })
   }
 })
 

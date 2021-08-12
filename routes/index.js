@@ -43,7 +43,7 @@ router.get('/', isAuthenticated, async (req, res) => {
 // @desc Login
 // @route GET /login
 router.get('/login', redirectIfAuthenticated, (req, res) => {
-  res.render('login')
+  res.render('login', { layout: 'layouts/layoutAuth' })
 })
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
@@ -54,7 +54,7 @@ router.post('/login', (req, res, next) => {
 })
 
 router.get('/register', redirectIfAuthenticated, (req, res) => {
-  res.render('register')
+  res.render('register', { layout: 'layouts/layoutAuth' })
 })
 
 router.post('/register', (req, res) => {

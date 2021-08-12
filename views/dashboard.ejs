@@ -1,226 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+</div>
 
-    <head>
+<!-- Content Row -->
+<div class="row">
 
-        <%- include('layouts/styles') %>
-
-    </head>
-
-    <body id="page-top">
-
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-
-            <!-- Sidebar -->
-            <%- include('layouts/sidebar') %>
-            <!-- End of Sidebar -->
-
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-
-                <!-- Main Content -->
-                <div id="content">
-
-                    <!-- Topbar -->
-                    <%- include('layouts/topbar') %>
-                    <!-- End of Topbar -->
-
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
-
-                        <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                        </div>
-
-                        <!-- Content Row -->
-                        <div class="row">
-
-                            <div class="col-xl-4 col-md-6">
-                                <!-- Bar Chart -->
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">Issues by Priority</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-bar">
-                                            <canvas id="issueByPriorityBarChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pie Chart -->
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card shadow mb-4">
-                                    <!-- Card Header - Dropdown -->
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Issues by Type</h6>
-                                    </div>
-                                    <!-- Card Body -->
-                                    <div class="card-body">
-                                        <div class="chart-pie pt-4 pb-2">
-                                            <canvas id="myPieChart"></canvas>
-                                        </div>
-                                        <div class="mt-4 text-center small">
-                                            <span class="mr-2">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Issues Open -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Issues Open
-                                                </div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= issuesOpen %></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Issues Closed -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-danger shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                    Issues Closed</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><%= issuesClosed %></div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Total projects -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    Projects</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><%= projectsCount %></div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-fw fa-cog fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- User assigned -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-info shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                    My projects</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><%= myProjects %></div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-user fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Content Row -->
-                        <div class="row">
-
-                            <div class="col-lg-6 mb-4">
-
-                                <!-- Approach -->
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">History Activities</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="vertical">
-                                            <li class="stepper-step stepper-active">
-                                                <div class="stepper-head">
-                                                    <span class="stepper-head-text"> You created issue at 12/12/2001 20:35 </span>
-                                                </div>
-                                                <div class="stepper-content py-3">
-                                                </div>
-                                            </li>
-
-                                            <li class="stepper-step stepper-active">
-                                                <div class="stepper-head">
-                                                    <span class="stepper-head-text"> Usera closed issue at 12/12/2001 20:35 </span>
-                                                </div>
-                                                <div class="stepper-content py-3">
-                                                </div>
-                                            </li>
-
-                                            <li class="stepper-step stepper-active">
-                                                <div class="stepper-head">
-                                                    <span class="stepper-head-text"> You created issue at 12/12/2001 20:35 </span>
-                                                </div>
-                                                <div class="stepper-content py-3">
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.container-fluid -->
-
-                </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <%- include('layouts/footer') %>
-                <!-- End of Footer -->
-
+    <div class="col-xl-4 col-md-6">
+        <!-- Bar Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Issues by Priority</h6>
             </div>
-            <!-- End of Content Wrapper -->
-
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="issueByPriorityBarChart"></canvas>
+                </div>
+            </div>
         </div>
-        <!-- End of Page Wrapper -->
+    </div>
 
-        <!-- Scroll to Top Button-->
-        <%- include('layouts/scrollToTop') %>
+    <!-- Pie Chart -->
+    <div class="col-xl-4 col-md-6">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Issues by Type</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+                <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Logout Modal-->
-        <%- include('layouts/logoutModal') %>
+    <!-- Issues Open -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Issues Open
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= issuesOpen %></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <%- include('layouts/scripts') %>
+    <!-- Issues Closed -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Issues Closed</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%= issuesClosed %></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- charts -->
-    <%- include('charts/issueByPriority') %>
-    <%- include('charts/issueByType') %>
+    <!-- Total projects -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Projects</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%= projectsCount %></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-fw fa-cog fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </body>
+    <!-- User assigned -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            My projects</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%= myProjects %></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-</html>
+<!-- Content Row -->
+<div class="row">
+
+    <div class="col-lg-6 mb-4">
+
+        <!-- Approach -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">History Activities</h6>
+            </div>
+            <div class="card-body">
+                <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="vertical">
+                    <li class="stepper-step stepper-active">
+                        <div class="stepper-head">
+                            <span class="stepper-head-text"> You created issue at 12/12/2001 20:35 </span>
+                        </div>
+                        <div class="stepper-content py-3">
+                        </div>
+                    </li>
+
+                    <li class="stepper-step stepper-active">
+                        <div class="stepper-head">
+                            <span class="stepper-head-text"> Usera closed issue at 12/12/2001 20:35 </span>
+                        </div>
+                        <div class="stepper-content py-3">
+                        </div>
+                    </li>
+
+                    <li class="stepper-step stepper-active">
+                        <div class="stepper-head">
+                            <span class="stepper-head-text"> You created issue at 12/12/2001 20:35 </span>
+                        </div>
+                        <div class="stepper-content py-3">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

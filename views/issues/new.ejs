@@ -1,170 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Create New Issue</h1>
+</div>
 
-    <head>
+<p>Project: <%= project.title %></p>
 
-        <%- include('../layouts/styles') %>
-
-    </head>
-
-    <body id="page-top">
-
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-
-            <!-- Sidebar -->
-            <%- include('../layouts/sidebar') %>
-            <!-- End of Sidebar -->
-
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-
-                <!-- Main Content -->
-                <div id="content">
-
-                    <!-- Topbar -->
-                    <%- include('../layouts/topbar') %>
-                    <!-- End of Topbar -->
-
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
-                        <!-- start here -->
-
-                        <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Create New Issue</h1>
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <form method="POST" action="/issues/<%= project._id %>">
+                        <div class="form-group">
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="description" id="description" placeholder="description"></textarea>
+                        </div>
+                        <p>Type:</p>
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="type"
+                                id="inlineRadio1"
+                                value="Bug"
+                                />
+                            <label class="form-check-label" for="inlineRadio1"><button type="button" class="btn btn-danger">Bug</button></label>
                         </div>
 
-                        <p>Project: <%= project.title %></p>
-
-                        <div class="card o-hidden border-0 shadow-lg my-5">
-                            <div class="card-body p-0">
-                                <!-- Nested Row within Card Body -->
-                                <div class="row">
-                                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                                    <div class="col-lg-6">
-                                        <div class="p-5">
-                                            <form method="POST" action="/issues/<%= project._id %>">
-                                                <div class="form-group">
-                                                    <input type="text" name="title" class="form-control" id="title" placeholder="Title">
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea name="description" id="description" placeholder="description"></textarea>
-                                                </div>
-                                                <p>Type:</p>
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="type"
-                                                        id="inlineRadio1"
-                                                        value="Bug"
-                                                        />
-                                                    <label class="form-check-label" for="inlineRadio1"><button type="button" class="btn btn-danger">Bug</button></label>
-                                                </div>
-
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="type"
-                                                        id="inlineRadio2"
-                                                        value="Feature"
-                                                        />
-                                                    <label class="form-check-label" for="inlineRadio2"><button type="button" class="btn btn-warning">Feature</button></label>
-                                                </div>
-
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="type"
-                                                        id="inlineRadio3"
-                                                        value="Discussion"
-                                                        />
-                                                    <label class="form-check-label" for="inlineRadio3"><button type="button" class="btn btn-info">Discussion</button></label>
-                                                </div>
-
-                                                <br/></br>
-
-                                                <p>Priority:</p>
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="priority"
-                                                        id="inlineRadio1"
-                                                        value="None"
-                                                        />
-                                                    <label class="form-check-label" for="inlineRadio1"><button type="button" class="btn btn-info">None</button></label>
-                                                </div>
-
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="priority"
-                                                        id="inlineRadio2"
-                                                        value="Low"
-                                                        />
-                                                    <label class="form-check-label" for="inlineRadio2"><button type="button" class="btn btn-success">Low</button></label>
-                                                </div>
-
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="priority"
-                                                        id="inlineRadio3"
-                                                        value="Medium"
-                                                        />
-                                                    <label class="form-check-label" for="inlineRadio3"><button type="button" class="btn btn-warning">Medium</button></label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="priority"
-                                                        id="inlineRadio3"
-                                                        value="High"
-                                                        />
-                                                    <label class="form-check-label" for="inlineRadio3"><button type="button" class="btn btn-danger">High</button></label>
-                                                </div>
-                                                <br/><br/>
-                                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                    Create
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="type"
+                                id="inlineRadio2"
+                                value="Feature"
+                                />
+                            <label class="form-check-label" for="inlineRadio2"><button type="button" class="btn btn-warning">Feature</button></label>
                         </div>
-                    </div>
-                    <!-- /.container-fluid -->
 
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="type"
+                                id="inlineRadio3"
+                                value="Discussion"
+                                />
+                            <label class="form-check-label" for="inlineRadio3"><button type="button" class="btn btn-info">Discussion</button></label>
+                        </div>
+
+                        <br/></br>
+
+                        <p>Priority:</p>
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="priority"
+                                id="inlineRadio1"
+                                value="None"
+                                />
+                            <label class="form-check-label" for="inlineRadio1"><button type="button" class="btn btn-info">None</button></label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="priority"
+                                id="inlineRadio2"
+                                value="Low"
+                                />
+                            <label class="form-check-label" for="inlineRadio2"><button type="button" class="btn btn-success">Low</button></label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="priority"
+                                id="inlineRadio3"
+                                value="Medium"
+                                />
+                            <label class="form-check-label" for="inlineRadio3"><button type="button" class="btn btn-warning">Medium</button></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="priority"
+                                id="inlineRadio3"
+                                value="High"
+                                />
+                            <label class="form-check-label" for="inlineRadio3"><button type="button" class="btn btn-danger">High</button></label>
+                        </div>
+                        <br/><br/>
+                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                            Create
+                        </button>
+                    </form>
                 </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <%- include('../layouts/footer') %>
-                <!-- End of Footer -->
-
             </div>
-            <!-- End of Content Wrapper -->
-
         </div>
-        <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <%- include('../layouts/scrollToTop') %>
-
-        <!-- Logout Modal-->
-        <%- include('../layouts/logoutModal') %>
-
-        <%- include('../layouts/scripts') %>
-
-        <%- include('layouts/scripts') %>
-    </body>
-
-</html>
+    </div>
+</div>

@@ -10,3 +10,62 @@
 
 <!-- Page level plugins -->
 <script src="/vendor/chart.js/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.16.1/ckeditor.js" integrity="sha512-2nFxKVmFuBhAR45DBnAANBjtxzf7z0m6wRU7NOquxibA6efrQpUtdjFT4wzqewqTI3/cCNbBzJNUtu1NxjFiKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<% if (active.search("comments") > 0) { %>
+    <script>
+        var config = {
+            extraPlugins: 'codesnippet',
+            codeSnippet_theme: 'monokai_sublime',
+            height: 356
+
+        };
+
+        CKEDITOR.replace('comment', config)
+    </script>
+<% } %>
+
+<%if (active.search("issues") > 0) { %>
+    <% if (active.search("details") > 0) { %>
+        <script>
+            var config = {
+                extraPlugins: 'codesnippet',
+                codeSnippet_theme: 'monokai_sublime',
+                height: 356
+
+            };
+
+            CKEDITOR.replace('comment', config)
+        </script>
+    <% } else { %>
+        <script>
+            var config = {
+                extraPlugins: 'codesnippet',
+                codeSnippet_theme: 'monokai_sublime',
+                height: 356
+
+            };
+
+            CKEDITOR.replace('description', config)
+        </script>
+    <% } %>
+<% } else { %>
+    <script>
+        var config = {
+            extraPlugins: 'codesnippet',
+            codeSnippet_theme: 'monokai_sublime',
+            height: 356
+
+        };
+
+        CKEDITOR.replace('description', config)
+    </script>
+<% } %>
+
+<!-- Page level plugins -->
+<script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/js/demo/datatables-demo.js"></script>
+

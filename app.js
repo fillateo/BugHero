@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+const expressLayouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -35,11 +36,14 @@ app.use(flash())
 app.use((req, res, next) => {
   res.locals.moment = moment
   res.locals.edit = null
+  res.locals.active = req.path // [0] will be empty since routes start with '/'
   next()
 })
 
 // view engine ejs
+app.use(expressLayouts)
 app.set('view engine', 'ejs')
+app.set('layout', 'layouts/layout', 'layouts/auth')
 
 // parsing data in json
 app.use(bodyParser.json())
@@ -103,7 +107,7 @@ app.use('/fileattachments', require('./routes/fileAttachments'))
 app.use('/comments', require('./routes/comments'))
 // render if path not found
 app.use((req, res) => {
-  res.render('error/404')
+  res.render('error/404', { layout: 'layouts/layoutError' })
 })
 
 const PORT = process.env.PORT || 3000
