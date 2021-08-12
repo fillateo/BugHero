@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"bugHero.users"}],"uuid":"4d029ae11f8c4e28ae057a5b53466bb0"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"bugHero.users"}],"uuid":"544ea7151fa9403aa56ff242c26f4319"}
