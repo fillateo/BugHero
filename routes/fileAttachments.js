@@ -15,6 +15,12 @@ router.post(
   isAuthenticated,
   upload.single('file'),
   async (req, res) => {
+    const project = await Project.findById(req.params.projectId)
+
+    if (project.user._id != req.user.id) {
+      return res.redirect('/projects/1')
+    }
+
     try {
       const file = req.file.path
 
@@ -22,7 +28,7 @@ router.post(
         res.render('error/400', { layout: 'layouts/layoutError' })
       }
 
-      req.body.project = await Project.findById(req.params.projectId)
+      req.body.project = project
       req.body.user = req.user
       req.body.file = file
       await FileAttachment.create(req.body)

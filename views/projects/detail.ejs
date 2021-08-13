@@ -8,41 +8,138 @@
     <div class="col-xl-4 col-md-6">
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title text-dark">Description</h5>
-                <p class="text-dark"><%- project.description %><p/>
-                        <hr>Created <%= moment(project.createdAt).fromNow() %> by <b><%= project.user.displayName %></b>
-                        <% if (project.createdAt.toString() != project.updatedAt.toString()) { %>
-                            <br>(Edited <%= moment(project.updatedAt).fromNow() %>)
-                        <% } %>
-                        <br><br>
-                        <% if (project.user._id.toString() == user._id) { %>
-                            <form action="/projects/<%= project._id %>" method="POST">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <a href="/projects/edit/<%= project._id %>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                <!-- Pills navs -->
+                <ul class="nav nav-pills mb-3" id="ex1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link active"
+                            id="ex1-tab-1"
+                            data-toggle="pill"
+                            href="#ex1-pills-1"
+                            role="tab"
+                            aria-controls="ex1-pills-1"
+                            aria-selected="true"
+                            >Details</a
+                        >
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link"
+                            id="ex1-tab-2"
+                            data-toggle="pill"
+                            href="#ex1-pills-2"
+                            role="tab"
+                            aria-controls="ex1-pills-2"
+                            aria-selected="false"
+                            ><i class="fas fa-user"></i> Members</a
+                        >
+                    </li>
+                </ul>
+                <!-- Pills navs -->
 
-                                <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteProjectModal"><i class="fa fa-trash"></i></a>
+                <!-- Pills content -->
+                <div class="tab-content" id="ex1-content">
+                    <div
+                        class="tab-pane fade show active"
+                        id="ex1-pills-1"
+                        role="tabpanel"
+                        aria-labelledby="ex1-tab-1"
+                        >
+                        <h5 class="card-title text-dark">Description</h5>
+                        <p class="text-dark"><%- project.description %><p/>
+                                <hr>Created <%= moment(project.createdAt).fromNow() %> by <b><%= project.user.displayName %></b>
+                                <% if (project.createdAt.toString() != project.updatedAt.toString()) { %>
+                                    <br>(Edited <%= moment(project.updatedAt).fromNow() %>)
+                                <% } %>
+                                <br><br>
+                                <% if (project.user._id.toString() == user._id) { %>
+                                    <form action="/projects/<%= project._id %>" method="POST">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <a href="/projects/edit/<%= project._id %>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
 
-                                <div class="modal fade" id="deleteProjectModal" tabindex="-1" role="dialog" aria-labelledby="deleteProjectModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteProjectModalLabel">Delete this project?</h5>
-                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-primary">Delete</button>
+                                        <a class="btn btn-sm btn-danger ml-2" href="#" data-toggle="modal" data-target="#deleteProjectModal"><i class="fa fa-trash"></i></a>
+
+                                        <div class="modal fade" id="deleteProjectModal" tabindex="-1" role="dialog" aria-labelledby="deleteProjectModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteProjectModalLabel">Delete this project?</h5>
+                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <a href="#" class="btn btn-danger ml-2"><i class="fas fa-user"></i> Assign Users</a>
-                            </form>
+                                    </form>
+                                <% } %>
+                    </div>
+                    <div class="tab-pane fade" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                        <% if (project.user._id.toString() == user._id) { %>
+                            <a href="/projectmembers/<%= project._id %>/new/1" class="btn btn-primary btn-sm btn-round mb-4"><i class="fas fa-plus"></i></a>
                         <% } %>
+                        <div class="table-responsive">
+                            <table class="table" id="dataTableMember" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Users</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Users</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <% for (let i = 0; i < project.members.length; i++) { %>
+                                        <tr>
+                                            <td>
+                                                <img class="img-profile rounded-circle" style="width: 50px;" src="<%= project.members[i].image %>">
+                                                <br>
+                                                <a href=""><%= project.members[i].displayName %></a>
+
+                                                <% if (project.user._id.toString() == user._id) { %>
+                                                    <form method="POST" action="/projectmembers/<%= project._id %>/delete">
+                                                        <input type="hidden" name="_method" value="PUT">
+                                                        <input type="hidden" name="user" value="<%= project.members[i]._id %>">
+
+                                                        <a class="btn btn-sm btn-danger btn-round mt-3" href="#" data-toggle="modal" data-target="#deleteMember<%= i %>Modal"><i class="fa fa-trash"></i></a>
+
+                                                        <div class="modal fade" id="deleteMember<%= i %>Modal" tabindex="-1" role="dialog" aria-labelledby="deleteMember<%= i %>ModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="deleteMember<%= i %>ModalLabel">Delete this member?</h5>
+                                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                <% } %>
+
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pills content -->
             </div>
         </div>
     </div>

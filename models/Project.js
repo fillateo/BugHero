@@ -13,6 +13,12 @@ const ProjectSchema = new Schema(
       required: true,
     },
     description: String,
+    members: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true,

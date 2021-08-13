@@ -1,8 +1,8 @@
 const express = require('express')
 
 const router = express.Router()
-const { isAuthenticated } = require('../middleware/auth')
 
+const { isAuthenticated } = require('../middleware/auth')
 const Project = require('../models/Project')
 const Issue = require('../models/Issue')
 const FileAttachment = require('../models/FileAttachment')
@@ -18,7 +18,15 @@ router.get('/new', isAuthenticated, (req, res) => {
 router.post('/', isAuthenticated, async (req, res) => {
   try {
     req.body.user = req.user
-    await Project.create(req.body)
+    const project = await Project.create(req.body)
+    await Project.findOneAndUpdate(
+      { _id: project._id },
+      { $push: { members: req.user.id } },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    )
     res.redirect('/projects/1')
   } catch (error) {
     console.log(error)
@@ -34,7 +42,10 @@ router.get('/:page', isAuthenticated, async (req, res) => {
     const page = req.params.page || 1
 
     if (req.query.search) {
-      Project.find({ $text: { $search: req.query.search } })
+      Project.find({
+        members: { $in: req.user.id },
+        $text: { $search: req.query.search },
+      })
         .skip(perPage * page - perPage)
         .limit(perPage)
         .populate('user')
@@ -51,7 +62,7 @@ router.get('/:page', isAuthenticated, async (req, res) => {
           })
         })
     } else {
-      Project.find({})
+      Project.find({ members: { $in: req.user.id } })
         .skip(perPage * page - perPage)
         .limit(perPage)
         .populate('user')
@@ -79,7 +90,7 @@ router.get('/:page', isAuthenticated, async (req, res) => {
 router.get('/details/:id', isAuthenticated, async (req, res) => {
   try {
     const project = await Project.findById(req.params.id)
-      .populate('user')
+      .populate('members user')
       .lean()
     const issues = await Issue.find({ project: project._id })
       .populate('user')
