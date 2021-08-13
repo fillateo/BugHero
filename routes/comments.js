@@ -72,7 +72,6 @@ router.put('/:id', isAuthenticated, async (req, res) => {
       return res.render('error/404', { layout: 'layouts/layoutError' })
     }
 
-    console.log('Lewat')
     await Comment.findOneAndUpdate({ _id: req.params.id }, req.body, {
       new: true,
       runValidators: true,
