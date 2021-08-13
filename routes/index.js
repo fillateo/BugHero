@@ -27,7 +27,7 @@ router.get('/', isAuthenticated, async (req, res) => {
   ])
   const issuesOpen = await Issue.find({ status: 'Open' }).count()
   const issuesClosed = await Issue.find({ status: 'Closed' }).count()
-  const projectsCount = await Project.count()
+  const projectsCount = await Project.find({ members: req.user.id }).count()
   const myProjects = await Project.find({ user: req.user }).count()
 
   res.render('dashboard', {

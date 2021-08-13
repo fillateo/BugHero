@@ -33,4 +33,6 @@ const UserSchema = new Schema({
   },
 })
 
+UserSchema.index({ '$**': 'text' })
+
 module.exports = mongoose.model('User', UserSchema)

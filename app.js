@@ -105,6 +105,7 @@ app.use('/projects', require('./routes/projects'))
 app.use('/issues', require('./routes/issues'))
 app.use('/fileattachments', require('./routes/fileAttachments'))
 app.use('/comments', require('./routes/comments'))
+app.use('/projectmembers', require('./routes/projectMembers'))
 // render if path not found
 app.use((req, res) => {
   res.render('error/404', { layout: 'layouts/layoutError' })
