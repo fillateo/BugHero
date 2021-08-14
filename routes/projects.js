@@ -21,7 +21,7 @@ router.get('/:page', isAuthenticated, controller.showAll)
 
 // @desc    Show project details
 // @route   GET /projects/details/:id
-router.get('/details/:id', isAuthenticated, controller.detail)
+router.get('/details/:id', isAuthenticated, controller.details)
 
 // @desc    Edit project
 // @route   GET /projects/edit/:id

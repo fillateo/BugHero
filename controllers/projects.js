@@ -76,7 +76,7 @@ module.exports = {
     }
   },
 
-  detail: async (req, res) => {
+  details: async (req, res) => {
     try {
       const project = await Project.findById(req.params.id)
         .populate('members user')
