@@ -1,4 +1,5 @@
 const faker = require('faker')
+
 const Issue = require('../models/Issue')
 const Project = require('../models/Project')
 const User = require('../models/User')
@@ -27,6 +28,7 @@ module.exports = {
     })
   },
 
+  /* eslint-disable no-await-in-loop */
   generateFakeProject: async (req, res, next) => {
     for (let i = 0; i < 20; i += 1) {
       const project = new Project()
@@ -56,4 +58,5 @@ module.exports = {
     }
     res.redirect('/projects/1')
   },
+  /* eslint-disable no-await-in-loop */
 }
