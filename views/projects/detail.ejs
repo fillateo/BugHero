@@ -109,8 +109,10 @@
                                                         <input type="hidden" name="_method" value="PUT">
                                                         <input type="hidden" name="user" value="<%= project.members[i]._id %>">
 
-                                                        <a class="btn btn-sm btn-danger btn-round mt-3" href="#" data-toggle="modal" data-target="#deleteMember<%= i %>Modal"><i class="fa fa-trash"></i></a>
+                                                        <% if (user.id != project.members[i]._id) { %>
 
+                                                        <a class="btn btn-sm btn-danger btn-round mt-3" href="#" data-toggle="modal" data-target="#deleteMember<%= i %>Modal"><i class="fa fa-trash"></i></a>
+                                                    <% } %>
                                                         <div class="modal fade" id="deleteMember<%= i %>Modal" tabindex="-1" role="dialog" aria-labelledby="deleteMember<%= i %>ModalLabel"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
