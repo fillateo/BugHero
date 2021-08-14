@@ -5,7 +5,7 @@ const router = express.Router()
 
 const passport = require('passport')
 const { check, validationResult } = require('express-validator/check')
-const { ensureAuthentication, generateProfileImage } = require('../config/auth')
+const { generateProfileImage } = require('../config/auth')
 
 const User = require('../models/User')
 
