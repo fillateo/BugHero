@@ -6,6 +6,7 @@ module.exports = {
       return next()
     }
 
+    req.flash('errors', { msg: 'You need to logged in' })
     return res.redirect('/users/login')
   },
 
