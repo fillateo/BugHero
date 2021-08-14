@@ -1,8 +1,7 @@
 const express = require('express')
+const controller = require('../controllers/auth')
 
 const router = express.Router()
-
-const controller = require('../controllers/auth')
 
 // @desc    Auth with Google
 // @route   GET /auth/google

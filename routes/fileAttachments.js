@@ -1,8 +1,6 @@
 const express = require('express')
 const { isAuthenticated } = require('../middleware/auth')
-
 const upload = require('../middleware/upload')
-
 const controller = require('../controllers/fileAttachments')
 
 const router = express.Router()

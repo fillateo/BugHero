@@ -1,10 +1,8 @@
 const express = require('express')
+const { isAuthenticated } = require('../middleware/auth')
+const controller = require('../controllers/projectMembers')
 
 const router = express.Router()
-
-const { isAuthenticated } = require('../middleware/auth')
-
-const controller = require('../controllers/projectMembers')
 
 // @desc    add project members
 // @route   GET /:projectId/new/:page

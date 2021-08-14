@@ -1,7 +1,5 @@
 const express = require('express')
-// Middleware
 const { redirectIfAuthenticated } = require('../middleware/auth')
-// Controllers
 const controller = require('../controllers/users')
 
 const router = express.Router()

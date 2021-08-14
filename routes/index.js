@@ -1,7 +1,5 @@
 const express = require('express')
-
 const { isAuthenticated } = require('../middleware/auth')
-
 const controller = require('../controllers/index')
 
 const router = express.Router()

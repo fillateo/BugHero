@@ -1,9 +1,8 @@
 const express = require('express')
+const { isAuthenticated } = require('../middleware/auth')
+const controller = require('../controllers/issues')
 
 const router = express.Router()
-const { isAuthenticated } = require('../middleware/auth')
-
-const controller = require('../controllers/issues')
 
 // @desc    Create new issues
 // @route   GET /issues/:projectId/new
