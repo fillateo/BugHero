@@ -6,7 +6,7 @@ module.exports = {
       return next()
     }
 
-    return res.redirect('/login')
+    return res.redirect('/users/login')
   },
 
   redirectIfAuthenticated: (req, res, next) => {

@@ -100,6 +100,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Routes
 app.use('/', require('./routes/index'))
+app.use('/users', require('./routes/users'))
 app.use('/auth', require('./routes/auth'))
 app.use('/projects', require('./routes/projects'))
 app.use('/issues', require('./routes/issues'))
