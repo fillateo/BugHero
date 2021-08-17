@@ -1,5 +1,4 @@
 const Project = require('../models/Project')
-
 const Issue = require('../models/Issue')
 const FileAttachment = require('../models/FileAttachment')
 
