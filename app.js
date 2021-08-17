@@ -15,11 +15,11 @@ const MongoStore = require('connect-mongo')
 const moment = require('moment')
 const connectMongoDB = require('./config/db')
 
-// Load config
-dotenv.config({ path: './config/config.env' })
-
 // Passport config
 require('./config/passport')(passport)
+
+// Load config
+dotenv.config({ path: './config/config.env' })
 
 connectMongoDB()
 
