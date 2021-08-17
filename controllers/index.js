@@ -7,14 +7,21 @@ const Comment = require('../models/Comment')
 
 module.exports = {
   index: async (req, res) => {
+    const projects = await Project.find({ members: req.user.id })
+    const projectsId = projects.map((project) => project._id)
+    const issues = await Issue.find({ project: projectsId })
+
     const issuesByPriority = await Issue.aggregate([
       { $group: { _id: '$priority', count: { $sum: 1 } } },
     ])
     const issuesByType = await Issue.aggregate([
       { $group: { _id: '$type', count: { $sum: 1 } } },
     ])
-    const issuesOpen = await Issue.find({ status: 'Open' }).count()
-    const issuesClosed = await Issue.find({ status: 'Closed' }).count()
+
+    const issuesOpen = issues.filter((issue) => issue.status == 'Open').length
+    const issuesClosed = issues.filter(
+      (issue) => issue.status == 'Closed'
+    ).length
     const projectsCount = await Project.find({ members: req.user.id }).count()
     const myProjects = await Project.find({ user: req.user }).count()
 
