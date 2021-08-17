@@ -2,7 +2,7 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 
 // Config
-const { generateProfileImage } = require('../config/auth')
+const generateProfileImage = require('../utils/generateProfileImage')
 
 // models
 const User = require('../models/User')
