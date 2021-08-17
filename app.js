@@ -15,9 +15,6 @@ const MongoStore = require('connect-mongo')
 const moment = require('moment')
 const connectMongoDB = require('./config/db')
 
-// Passport config
-require('./config/passport')(passport)
-
 // Load config
 dotenv.config({ path: './config/config.env' })
 
@@ -77,10 +74,16 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI_LOCAL,
+      mongoUrl:
+        process.env.NODE_ENV === 'development'
+          ? process.env.MONGO_URI_LOCAL
+          : process.env.MONGO_URI,
     }),
   })
 )
+
+// Passport config
+require('./config/passport')(passport)
 
 // Passport middleware
 app.use(passport.initialize())
