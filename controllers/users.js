@@ -9,7 +9,7 @@ const User = require('../models/User')
 
 module.exports = {
   login: (req, res) => {
-    res.render('login', { layout: 'layouts/layoutAuth' })
+    res.render('users/login', { layout: 'layouts/layoutAuth' })
   },
 
   processLogin: (req, res, next) => {
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   register: (req, res) => {
-    res.render('register', { layout: 'layouts/layoutAuth' })
+    res.render('users/register', { layout: 'layouts/layoutAuth' })
   },
 
   create: (req, res) => {
