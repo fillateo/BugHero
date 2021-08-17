@@ -12,11 +12,15 @@ module.exports = {
     const issues = await Issue.find({ project: projectsId })
 
     const issuesByPriority = await Issue.aggregate([
+      { $match: { project: { $in: projectsId } } },
       { $group: { _id: '$priority', count: { $sum: 1 } } },
     ])
+    console.log(issuesByPriority)
     const issuesByType = await Issue.aggregate([
+      { $match: { project: { $in: projectsId } } },
       { $group: { _id: '$type', count: { $sum: 1 } } },
     ])
+    console.log(issuesByType)
 
     const issuesOpen = issues.filter((issue) => issue.status == 'Open').length
     const issuesClosed = issues.filter(
