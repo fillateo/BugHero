@@ -1,7 +1,9 @@
 <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Issue Detail</h1>
+    <% if (issue.user._id == user.id) { %>
     <a href="/issues/<%= project._id %>/edit/<%= issue._id %>" class="btn btn-primary"><i class="fas fa-edit"></i> Edit Issue</a>
+<% } %>
     </div>
 
     <h4 class="mb-4">Project: <%= project.title %></h4>
