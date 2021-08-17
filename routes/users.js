@@ -1,5 +1,8 @@
 const express = require('express')
-const { redirectIfAuthenticated } = require('../middleware/auth')
+const {
+  isAuthenticated,
+  redirectIfAuthenticated,
+} = require('../middleware/auth')
 const controller = require('../controllers/users')
 
 const router = express.Router()
@@ -19,5 +22,9 @@ router.get('/register', redirectIfAuthenticated, controller.register)
 // @desc    Store/Create New User
 // @route   POST /users/register
 router.post('/register', controller.create)
+
+// @desc    View user profile
+// @route   GET /users/:id
+router.get('/:id', isAuthenticated, controller.profile)
 
 module.exports = router

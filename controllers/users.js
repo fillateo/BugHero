@@ -91,4 +91,9 @@ module.exports = {
       })
     })
   },
+
+  profile: async (req, res) => {
+    const user = await User.findById(req.params.id)
+    res.render('users/profile', { user })
+  },
 }
