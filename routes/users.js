@@ -35,4 +35,8 @@ router.get('/:id/edit', isAuthenticated, controller.edit)
 // @route   post /users/:id
 router.put('/:id', isAuthenticated, controller.update)
 
+// @desc    Delete user
+// @route   DELETE /users/:id
+router.delete('/:id', isAuthenticated, controller.remove)
+
 module.exports = router

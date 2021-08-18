@@ -93,8 +93,8 @@ module.exports = {
   },
 
   profile: async (req, res) => {
-    const user = await User.findById(req.params.id)
-    res.render('users/profile', { user })
+    const userProfile = await User.findById(req.params.id)
+    res.render('users/profile', { userProfile })
   },
 
   edit: async (req, res) => {
@@ -154,6 +154,25 @@ module.exports = {
 
         res.redirect(`/users/${req.params.id}`)
       }
+    } catch (err) {
+      console.error(err)
+      return res.render('error/500', { layout: 'layouts/layoutError' })
+    }
+  },
+
+  remove: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id).lean()
+
+      if (!user) {
+        return res.render('error/404', { layout: 'layouts/layoutError' })
+      }
+
+      if (user._id != req.user.id) {
+        return res.redirect(`/users/${req.params.id}`)
+      }
+      await User.remove({ _id: req.params.id })
+      res.redirect('/users/login')
     } catch (err) {
       console.error(err)
       return res.render('error/500', { layout: 'layouts/layoutError' })
