@@ -26,6 +26,12 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  role: String,
   password: String,
   createdAt: {
     type: Date,

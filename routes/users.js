@@ -27,4 +27,12 @@ router.post('/register', controller.create)
 // @route   GET /users/:id
 router.get('/:id', isAuthenticated, controller.profile)
 
+// @desc    Edit user
+// @route   GET /users/:id/edit
+router.get('/:id/edit', isAuthenticated, controller.edit)
+
+// @desc    Update user
+// @route   post /users/:id
+router.put('/:id', isAuthenticated, controller.update)
+
 module.exports = router

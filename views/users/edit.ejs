@@ -1,0 +1,38 @@
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body text-center">
+                <img src="<%= user.image %>" alt="avatar" class="mt-4 rounded-circle img-fluid" style="width: 150px;">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+            <div class="col-lg-7">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Edit User</h1>
+                    </div>
+                    <form action="/users/<%= user._id %>" method="POST" class="user">
+                                <input type="hidden" name="_method" value="PUT">
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="text" name="firstName" class="form-control form-control-user" value="<%= user.firstName %>" id="firstName" placeholder="First Name" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" name="lastName" class="form-control form-control-user" value="<%= user.lastName %>" id="lastName" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control form-control-user" value="<%= user.email %>" id="email" placeholder="Email Address" <% if (user.googleId) { %> disabled <% } %> required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="username" class="form-control form-control-user" id="email" placeholder="Username" value="<%= user.username %>" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                            Update
+                        </button>
+                    </form>
+                    <%- include('../messages') %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
