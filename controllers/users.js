@@ -48,7 +48,7 @@ module.exports = {
         req.flash('errors', {
           msg: `Already a user with Email ${req.body.email}`,
         })
-        return res.redirect('/users/login')
+        return res.redirect('/users/register')
       }
 
       User.findOne({
