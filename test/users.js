@@ -14,8 +14,8 @@ const credentials = {
 }
 
 describe('Users Controller', () => {
-  after(() => {
-    User.findOneAndDelete({ username: credentials.username })
+  after(async () => {
+    await User.findOneAndDelete({ username: credentials.username })
   })
 
   it('should register a new user', () =>
