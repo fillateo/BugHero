@@ -1,4 +1,4 @@
-const { assert } = require('chai')
+// const { assert } = require('chai')
 const request = require('supertest-as-promised')
 
 const app = require('../app')
@@ -10,8 +10,6 @@ const credentials = {
   email: 'integrationtest@gmail.com',
   password: 'integration123',
 }
-
-const _user = `integration_test_${Math.floor(Date.now() / 1000)}@alttab.co`
 
 describe('Users Controller', () => {
   it('should register a new user', () =>
