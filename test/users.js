@@ -3,6 +3,8 @@ const request = require('supertest-as-promised')
 
 const app = require('../app')
 
+const User = require('../models/User')
+
 process.env.NODE_ENV = 'development'
 
 const credentials = {
@@ -12,6 +14,10 @@ const credentials = {
 }
 
 describe('Users Controller', () => {
+  after(() => {
+    User.findOneAndDelete({ username: credentials.username })
+  })
+
   it('should register a new user', () =>
     request(app)
       .post('/users/register')
