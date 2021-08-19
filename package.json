@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=production node app",
     "dev": "cross-env NODE_ENV=development nodemon app",
     "lint": "npx eslint .",
-    "test": "cross-env NODE_ENV=development npx istanbul cover mocha --timeout 1000000 --exit"
+    "test": "cross-env NODE_ENV=development npx mocha --timeout 1000000 --exit"
   },
   "repository": {
     "type": "git",
