@@ -46,7 +46,7 @@ app.set('layout', 'layouts/layout', 'layouts/auth')
 // parsing data in json
 app.use(bodyParser.json())
 
-// or parsing application/xwww-
+// parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Method override
