@@ -27,7 +27,7 @@
               </div>
 
               <div class="col-10">
-                <p class="mb-2"><strong><%= comments[i].user.displayName %></strong></p>
+                <p class="mb-2"><strong><%= comments[i].user.username %></strong></p>
                 <p class="mb-2 text-sm">Commented <%= moment(comments[i].createdAt).fromNow() %></p>
 
                 <% if (comments[i].createdAt.toString() != comments[i].updatedAt.toString()) { %>

@@ -66,7 +66,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <% if (user) { %>
-                    <p class="mr-3 mt-3 d-lg-inline text-dark"><%= user.displayName %></p>
+                    <p class="mr-3 mt-3 d-lg-inline text-dark"><%= user.username %></p>
                 <img class="img-profile rounded-circle"
                      src="<%= user.image %>">
                 <% } %>
