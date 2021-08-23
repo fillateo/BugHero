@@ -47,7 +47,7 @@
                         >
                         <h5 class="card-title text-dark">Description</h5>
                         <p class="text-dark"><%- project.description %><p/>
-                                <hr>Created <%= moment(project.createdAt).fromNow() %> by <b><%= project.user.username %></b>
+                                <hr>Created <%= moment(project.createdAt).fromNow() %> by <b><a href="/users/<%= project.user._id %>"><%= project.user.username %></a></b>
                                 <% if (project.createdAt.toString() != project.updatedAt.toString()) { %>
                                     <br>(Edited <%= moment(project.updatedAt).fromNow() %>)
                                 <% } %>
@@ -102,7 +102,7 @@
                                             <td>
                                                 <img class="img-profile rounded-circle" style="width: 50px;" src="<%= project.members[i].image %>">
                                                 <br>
-                                                <a href=""><%= project.members[i].username %></a>
+                                                <a href="/users/<%= project.members[i]._id %>"><%= project.members[i].username %></a>
 
                                                 <% if (project.user._id.toString() == user._id) { %>
                                                     <form method="POST" action="/projectmembers/<%= project._id %>/delete">
@@ -253,7 +253,7 @@
                                         <button class="btn btn-sm btn-info btn-round"><%= issues[i].type %></button>
                                     <% } %>
                                     </a>
-                                    <p class="text-sm">Created <%= moment(issues[i].createdAt).fromNow() %> by <%= issues[i].user.username  %></p>
+                                    <p class="text-sm">Created <%= moment(issues[i].createdAt).fromNow() %> by <a href="/users/<%= issues[i].user._id %>"><%= issues[i].user.username %></a></p>
                                 </td>
                                 <td>
                                     <% if (issues[i].priority == 'None') { %>

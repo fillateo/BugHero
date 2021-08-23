@@ -39,7 +39,7 @@
     <p class="mt-4"><%- issue.description %></p>
     </p>
     <hr/>
-    <p class="text-sm"> Created <%= moment(issue.createdAt).fromNow() %> by <%= issue.user.username %>
+    <p class="text-sm"> Created <%= moment(issue.createdAt).fromNow() %> by <a href="/users/<%= issue.user._id %>"><%= issue.user.username %></a>
 
 <% if (issue.createdAt.toString() != issue.updatedAt.toString()) { %>
             <p class="text-sm"> (Edited <%= moment(issue.updatedAt).fromNow() %>) %>

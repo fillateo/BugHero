@@ -32,7 +32,7 @@
                         </p>
                         <a href="/projects/details/<%= projects[i]._id %>" class="btn btn-primary">Details</a>
                     </div>
-                    <div class="card-footer text-muted" style="background-color: white">Created <%= moment(projects[i].createdAt).fromNow() %> <br>by <%= projects[i].user.username  %></div>
+                    <div class="card-footer text-muted" style="background-color: white">Created <%= moment(projects[i].createdAt).fromNow() %> <br>by <a href="/users/<%= projects[i].user._id %>/"><%= projects[i].user.username  %></a></div>
                 </div>
             </div>
         <% } %>
