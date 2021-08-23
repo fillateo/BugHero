@@ -40,13 +40,6 @@ require('./config/passport')(passport)
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use((req, res, next) => {
-  res.locals.user = req.user
-  res.locals.success = req.flash('success')
-
-  next()
-})
-
 // expresss helper packages
 // app.use(expressStatusMonitor())
 
@@ -60,6 +53,8 @@ app.use((req, res, next) => {
   res.locals.moment = moment
   res.locals.edit = null
   res.locals.active = req.path // [0] will be empty since routes start with '/'
+  res.locals.user = req.user
+  res.locals.success = req.flash('success')
   next()
 })
 
