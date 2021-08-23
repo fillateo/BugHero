@@ -22,6 +22,31 @@ connectMongoDB()
 
 const app = express()
 
+app.use(
+  session({
+    secret: 'Hello World',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
+  })
+)
+
+// Passport config
+require('./config/passport')(passport)
+
+// Passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  res.locals.success = req.flash('success')
+
+  next()
+})
+
 // expresss helper packages
 // app.use(expressStatusMonitor())
 
@@ -68,31 +93,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // view folder
 app.set('views', path.join(__dirname, 'views'))
-
-app.use(
-  session({
-    secret: 'Hello World',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-    }),
-  })
-)
-
-// Passport config
-require('./config/passport')(passport)
-
-// Passport middleware
-app.use(passport.initialize())
-app.use(passport.session())
-
-app.use((req, res, next) => {
-  res.locals.user = req.user
-  res.locals.success = req.flash('success')
-
-  next()
-})
 
 // use morgan for logging if running development mode
 if (process.env.NODE_ENV === 'development') {
