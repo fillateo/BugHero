@@ -24,7 +24,6 @@ module.exports = function (passport) {
             return done(null, false, {
               message: 'User is not connected via Email',
             })
-            //
           }
           bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
