@@ -9,6 +9,7 @@
                     <div class="text-center">
                         <h1 class="h4 text-gray-900 mb-4">Edit User</h1>
                     </div>
+                    <%- include ('../messages') %>
                     <form action="/users/<%= user._id %>" method="POST" class="user">
                                 <input type="hidden" name="_method" value="PUT">
                         <div class="form-group row">
@@ -30,7 +31,6 @@
                             Update
                         </button>
                     </form>
-                    <%- include('../messages') %>
                 </div>
             </div>
         </div>

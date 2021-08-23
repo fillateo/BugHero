@@ -1,8 +1,15 @@
 const Project = require('../models/Project')
 
+const checkUsername = (req) =>
+  !req.user.username && req.path != `/${req.user._id}/edit`
+
 module.exports = {
   isAuthenticated: (req, res, next) => {
     if (req.isAuthenticated()) {
+      if (checkUsername(req) && req.method == 'GET') {
+        req.flash('errors', { msg: 'You need to add username' })
+        return res.redirect(`/users/${req.user._id}/edit`)
+      }
       return next()
     }
 
