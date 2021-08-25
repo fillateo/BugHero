@@ -25,10 +25,6 @@ const app = express()
 // Passport config
 require('./config/passport')(passport)
 
-// Passport middleware
-app.use(passport.initialize())
-app.use(passport.session())
-
 app.use(
   session({
     secret: 'Hello World',
@@ -39,6 +35,10 @@ app.use(
     }),
   })
 )
+
+// Passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
 
 // expresss helper packages
 // app.use(expressStatusMonitor())
