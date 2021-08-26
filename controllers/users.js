@@ -25,9 +25,6 @@ module.exports = {
   },
 
   create: (req, res) => {
-    req.assert('firstName', 'First name is required').notEmpty()
-    req.assert('username', 'Username is required').notEmpty()
-    req.assert('email', 'Enter a valid email address').isEmail()
     req
       .assert('password', 'Password must be at least 6 charecters')
       .isLength({ min: 6 })
