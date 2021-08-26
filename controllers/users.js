@@ -35,10 +35,7 @@ module.exports = {
 
     if (errors) {
       req.flash('errors', errors)
-      return res.render('register', {
-        username: req.body.username,
-        email: req.body.email,
-      })
+      return res.redirect('/users/register')
     }
 
     User.findOne({
