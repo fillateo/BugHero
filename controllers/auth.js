@@ -42,7 +42,6 @@ module.exports = {
         req.flash('errors', {
           msg: `Already a user with Email ${req.body.email}`,
         })
-
         return res.redirect('/users/register')
       }
 
@@ -64,7 +63,6 @@ module.exports = {
         email: req.body.email.toLowerCase(),
         password: req.body.password,
       })
-
       const saltLength = 10
       const salt = await bcrypt.genSalt(saltLength)
 
@@ -74,7 +72,6 @@ module.exports = {
         if (hash) {
           newUser.password = hash
           newUser.image = generateProfileImage(newUser.email)
-
           newUser
             .save()
             .then((user) => {
