@@ -4,13 +4,13 @@ const FileAttachment = require('../models/FileAttachment')
 
 module.exports = {
   upload: async (req, res) => {
-    const project = await Project.findById(req.params.projectId)
-
-    if (project.user._id != req.user.id) {
-      return res.redirect('/projects/1')
-    }
-
     try {
+      const project = await Project.findById(req.params.projectId)
+
+      if (project.user._id != req.user.id) {
+        return res.redirect('/projects/1')
+      }
+
       const file = req.file.path
 
       if (!file) {
