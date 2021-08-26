@@ -94,6 +94,7 @@ module.exports = {
       }
 
       await Comment.remove({ _id: req.params.id })
+
       res.redirect(`/issues/${issue.project._id}/details/${issue._id}/1`)
     } catch (err) {
       console.error(err)
