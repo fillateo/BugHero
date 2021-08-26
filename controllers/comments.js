@@ -50,7 +50,7 @@ module.exports = {
   update: async (req, res) => {
     try {
       const comment = await Comment.findById(req.params.id)
-        .populate('issue user')
+        .populate('issue')
         .lean()
       const issue = await Issue.findById(comment.issue._id)
         .populate('project')
@@ -79,7 +79,7 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const comment = await Comment.findById(req.params.id)
-        .populate('user issue')
+        .populate('issue')
         .lean()
       const issue = await Issue.findById(comment.issue._id)
         .populate('project')
