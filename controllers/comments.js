@@ -34,7 +34,7 @@ module.exports = {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
 
-      if (issue.user._id.toString() != req.user._id) {
+      if (comment.user != req.user.id) {
         res.redirect(`/issues/${issue.project._id}/details/${issue._id}/1`)
       } else {
         res.render('comments/edit', {
