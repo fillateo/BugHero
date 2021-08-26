@@ -2,3 +2,4 @@ node_modules
 config/config.env
 config/config.env.example
 public/issueFileAttachments/*
+dump/
