@@ -65,7 +65,8 @@ module.exports = {
         password: req.body.password,
       })
 
-      bcrypt.genSalt(10, (errGenSalt, salt) => {
+      const saltLength = 10
+      bcrypt.genSalt(saltLength, (errGenSalt, salt) => {
         bcrypt.hash(newUser.password, salt, (errHash, hash) => {
           newUser.password = hash
           newUser.image = generateProfileImage(newUser.email)
