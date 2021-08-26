@@ -7,7 +7,7 @@ module.exports = {
     try {
       const project = await Project.findById(req.params.projectId)
 
-      if (project.user._id != req.user.id) {
+      if (project.user != req.user.id) {
         return res.redirect('/projects/1')
       }
 
@@ -41,14 +41,14 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const file = await FileAttachment.findById(req.params.id)
-        .populate('user project')
+        .populate('project')
         .lean()
 
       if (!file) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
 
-      if (file.user._id != req.user.id) {
+      if (file.user != req.user.id) {
         res.redirect(`/projects/details/${file.project._id}`)
       } else {
         await FileAttachment.remove({ _id: req.params.id })
