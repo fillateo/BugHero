@@ -11,17 +11,9 @@ const router = express.Router()
 // @route   GET /users/login
 router.get('/login', redirectIfAuthenticated, controller.login)
 
-// @desc    Process Login
-// @route   POST /users/login
-router.post('/login', controller.processLogin)
-
 // @desc    Register
 // @route   GET /users/register
 router.get('/register', redirectIfAuthenticated, controller.register)
-
-// @desc    Store/Create New User
-// @route   POST /users/register
-router.post('/register', controller.create)
 
 // @desc    View user profile
 // @route   GET /users/:id

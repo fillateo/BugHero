@@ -11,6 +11,14 @@ router.get('/google', controller.google)
 // @route   GET /auth/google/callback
 router.get('/google/callback', controller.googleCallback, controller.redirect)
 
+// @desc    Process Login
+// @route   POST /users/login
+router.post('/login', controller.processLogin)
+
+// @desc    Store/Create New User
+// @route   POST /users/register
+router.post('/register', controller.create)
+
 // @desc    Logout
 // @route   /auth/logout
 router.get('/logout', (req, res) => {
