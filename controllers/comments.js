@@ -60,7 +60,7 @@ module.exports = {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
 
-      if (comment.user._id.toString() != req.user._id) {
+      if (comment.user != req.user.id) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
 
@@ -89,7 +89,7 @@ module.exports = {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
 
-      if (comment.user._id.toString() != req.user._id) {
+      if (comment.user != req.user.id) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
 
