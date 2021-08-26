@@ -9,7 +9,9 @@ const User = require('../models/User')
 
 module.exports = {
   login: (req, res) => {
-    res.render('users/login', { layout: 'layouts/layoutAuth' })
+    res.render('users/login', {
+      layout: 'layouts/layoutAuth',
+    })
   },
 
   processLogin: (req, res, next) => {
