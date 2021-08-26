@@ -37,8 +37,8 @@ module.exports = {
 
     User.findOne({
       email: req.body.email,
-    }).then((user) => {
-      if (user) {
+    }).then((userByEmail) => {
+      if (userByEmail) {
         req.flash('errors', {
           msg: `Already a user with Email ${req.body.email}`,
         })

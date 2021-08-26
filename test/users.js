@@ -20,7 +20,7 @@ describe('Users Controller', () => {
 
   it('should register a new user', () =>
     request(app)
-      .post('/users/register')
+      .post('/auth/register')
       .send({
         displayName: 'Integ Display Name',
         firstName: 'Integration',
@@ -34,7 +34,7 @@ describe('Users Controller', () => {
 
   it('should login existing User', () =>
     request(app)
-      .post('/users/login')
+      .post('/auth/login')
       .send({
         email: credentials.email,
         password: credentials.password,
@@ -44,7 +44,7 @@ describe('Users Controller', () => {
 
   it('should redirect to "/users/login" if wrong email', () =>
     request(app)
-      .post('/users/login')
+      .post('/auth/login')
       .send({
         email: 'wrongemail@email.com',
         password: credentials.password,
@@ -54,7 +54,7 @@ describe('Users Controller', () => {
 
   it('should redirect to "/users/login" if wrong password', () =>
     request(app)
-      .post('/users/login')
+      .post('/auth/login')
       .send({
         email: credentials.email,
         password: 'wrongpassword',
@@ -64,7 +64,7 @@ describe('Users Controller', () => {
 
   it('should redirect to "/users/register" if email is used', () =>
     request(app)
-      .post('/users/register')
+      .post('/auth/register')
       .send({
         displayName: 'Integ Display Name',
         firstName: 'Integration',
@@ -78,7 +78,7 @@ describe('Users Controller', () => {
 
   it('should return to "/users/register" if username is used', () =>
     request(app)
-      .post('/users/register')
+      .post('/auth/register')
       .send({
         username: credentials.username,
         email: 'examplemail@email.com',
