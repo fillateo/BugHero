@@ -24,7 +24,7 @@ module.exports = {
     })(req, res, next)
   },
 
-  create: (req, res) => {
+  create: async (req, res) => {
     req
       .assert('password', 'Password must be at least 6 charecters')
       .isLength({ min: 6 })
@@ -35,26 +35,26 @@ module.exports = {
       return res.redirect('/users/register')
     }
 
-    User.findOne({
-      email: req.body.email,
-    }).then((userByEmail) => {
-      if (userByEmail) {
+    try {
+      let existUser = await User.findOne({ email: req.body.email })
+
+      if (existUser) {
         req.flash('errors', {
           msg: `Already a user with Email ${req.body.email}`,
         })
+
         return res.redirect('/users/register')
       }
 
-      User.findOne({
-        username: req.body.username,
-      }).then((userByUsername) => {
-        if (userByUsername) {
-          req.flash('errors', {
-            msg: `Already a user with username ${req.body.username}`,
-          })
-          return res.redirect('/users/register')
-        }
-      })
+      existUser = await User.findOne({ username: req.body.username })
+
+      if (existUser) {
+        req.flash('errors', {
+          msg: `Already a user with username ${req.body.username}`,
+        })
+
+        return res.redirect('/users/register')
+      }
 
       const newUser = new User({
         firstName: req.body.firstName,
@@ -66,15 +66,19 @@ module.exports = {
       })
 
       const saltLength = 10
-      bcrypt.genSalt(saltLength, (errGenSalt, salt) => {
-        bcrypt.hash(newUser.password, salt, (errHash, hash) => {
+      const salt = await bcrypt.genSalt(saltLength)
+
+      if (salt) {
+        const hash = await bcrypt.hash(newUser.password, salt)
+
+        if (hash) {
           newUser.password = hash
           newUser.image = generateProfileImage(newUser.email)
 
           newUser
             .save()
-            .then((userSaved) => {
-              if (userSaved) {
+            .then((user) => {
+              if (user) {
                 req.flash('success', {
                   msg: 'Your account has been registered.',
                 })
@@ -84,8 +88,10 @@ module.exports = {
             .catch((error) => {
               console.log(error)
             })
-        })
-      })
-    })
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
   },
 }
