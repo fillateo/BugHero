@@ -92,6 +92,7 @@ module.exports = {
       }
     } catch (error) {
       console.log(error)
+      return res.render('error/500', { layout: 'layouts/layoutError' })
     }
   },
 }
