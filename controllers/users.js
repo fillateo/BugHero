@@ -53,8 +53,8 @@ module.exports = {
 
       User.findOne({
         username: req.body.username,
-      }).then((user) => {
-        if (user) {
+      }).then((userByUsername) => {
+        if (userByUsername) {
           req.flash('errors', {
             msg: `Already a user with username ${req.body.username}`,
           })
@@ -71,21 +71,23 @@ module.exports = {
         password: req.body.password,
       })
 
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
+      bcrypt.genSalt(10, (errGenSalt, salt) => {
+        bcrypt.hash(newUser.password, salt, (errHash, hash) => {
           newUser.password = hash
           newUser.image = generateProfileImage(newUser.email)
 
           newUser
             .save()
-            .then((user) => {
-              req.flash('success', {
-                msg: 'Your account has been registered.',
-              })
-              return res.redirect('/users/login')
+            .then((userSaved) => {
+              if (userSaved) {
+                req.flash('success', {
+                  msg: 'Your account has been registered.',
+                })
+                return res.redirect('/users/login')
+              }
             })
-            .catch((err) => {
-              console.log(err)
+            .catch((error) => {
+              console.log(error)
             })
         })
       })
