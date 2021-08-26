@@ -1,7 +1,7 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 
-// Config
+// Utils
 const generateProfileImage = require('../utils/generateProfileImage')
 
 // models
