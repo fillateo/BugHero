@@ -31,6 +31,12 @@ module.exports = {
 
   download: async (req, res) => {
     try {
+      const project = await Project.findOne({
+        _id: req.params.projectId,
+        members: { $in: req.user.id },
+      })
+      if (!project) return res.redirect('/')
+
       res.download(req.query.file)
     } catch (err) {
       console.log(err)

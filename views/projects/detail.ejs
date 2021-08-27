@@ -171,7 +171,7 @@
                             <tbody>
                                 <% for (let i = 0; i < fileAttachments.length; i++) { %>
                                     <tr>
-                                        <td><a href="/fileattachments?file=<%= fileAttachments[i].file %>"> File <%= i + 1 %></td>
+                                        <td><a href="/fileattachments/<%= project._id %>?file=<%= fileAttachments[i].file %>"> File <%= i + 1 %></td>
 
                                         <% if (fileAttachments[i].user._id.toString() == user._id) { %>
                                             <td>

@@ -19,6 +19,7 @@ module.exports = {
           useFindAndModify: false,
         }
       )
+
       res.redirect('/projects/1')
     } catch (error) {
       console.log(error)
@@ -77,9 +78,17 @@ module.exports = {
 
   details: async (req, res) => {
     try {
-      const project = await Project.findById(req.params.id)
+      const project = await Project.findOne({
+        _id: req.params.id,
+        members: { $in: req.user.id },
+      })
         .populate('members user')
         .lean()
+
+      if (!project) {
+        return res.render('error/404', { layout: 'layouts/layoutError' })
+      }
+
       const issues = await Issue.find({ project: project._id })
         .populate('user')
         .lean()
@@ -89,9 +98,6 @@ module.exports = {
         .populate('project')
         .lean()
 
-      if (!project) {
-        return res.render('error/404', { layout: 'layouts/layoutError' })
-      }
       res.render('projects/detail', {
         project,
         issues,
@@ -107,6 +113,7 @@ module.exports = {
     try {
       const project = await Project.findOne({
         _id: req.params.id,
+        members: { $in: req.user.id },
       }).lean()
 
       if (!project) {
@@ -128,7 +135,10 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      let project = await Project.findById(req.params.id).lean()
+      let project = await Project.findOne({
+        _id: req.params.id,
+        members: { $in: req.user.id },
+      }).lean()
 
       if (!project) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
@@ -156,7 +166,10 @@ module.exports = {
 
   remove: async (req, res) => {
     try {
-      const project = await Project.findById(req.params.id).lean()
+      const project = await Project.findOne({
+        _id: req.params.id,
+        members: { $in: req.user.id },
+      }).lean()
 
       if (!project) {
         return res.render('error/404', { layout: 'layouts/layoutError' })

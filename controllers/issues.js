@@ -4,16 +4,35 @@ const Comment = require('../models/Comment')
 
 module.exports = {
   new: async (req, res) => {
-    const project = await Project.findById(req.params.projectId)
+    try {
+      const project = await Project.findOne({
+        _id: req.params.projectId,
+        members: { $in: req.user.id },
+      })
 
-    res.render('issues/new', {
-      project,
-    })
+      if (!project)
+        return res.render('error/404', { layout: 'layouts/layoutError' })
+
+      res.render('issues/new', {
+        project,
+      })
+    } catch (error) {
+      console.error(error)
+      res.render('error/500', { layout: 'layouts/layoutError' })
+    }
   },
 
   store: async (req, res) => {
     try {
-      req.body.project = await Project.findById(req.params.projectId)
+      const project = await Project.findOne({
+        _id: req.params.projectId,
+        members: { $in: req.user.id },
+      })
+
+      if (!project)
+        return res.render('error/404', { layout: 'layouts/layoutError' })
+
+      req.body.project = project
       req.body.user = req.user
       await Issue.create(req.body)
       res.redirect(`/projects/details/${req.params.projectId}`)

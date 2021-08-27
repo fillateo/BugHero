@@ -8,7 +8,7 @@ const router = express.Router()
 // @desc    upload project file attachment
 // @route   GET /issueattachments/:projectId/new
 router.post(
-  '/:projectId/',
+  '/:projectId',
   isAuthenticated,
   upload.single('file'),
   controller.upload
@@ -16,7 +16,7 @@ router.post(
 
 // @desc    Download project file attachment
 // @route   GET /issueattachments/?file=blqbla
-router.get('/', isAuthenticated, controller.download)
+router.get('/:projectId', isAuthenticated, controller.download)
 
 // @desc    Delete project file attachment
 // @route   DELETE /issueattachments/:id

@@ -60,19 +60,19 @@ module.exports = {
       }
 
       if (project.user != req.user.id) {
-        res.redirect('/projects/1')
-      } else {
-        project = await Project.findOneAndUpdate(
-          { _id: req.params.projectId },
-          { $push: { members: req.body.user } },
-          {
-            new: true,
-            useFindAndModify: false,
-          }
-        )
-
-        res.redirect(`/projects/details/${req.params.projectId}`)
+        return res.redirect('/projects/1')
       }
+
+      project = await Project.findOneAndUpdate(
+        { _id: req.params.projectId },
+        { $push: { members: req.body.user } },
+        {
+          new: true,
+          useFindAndModify: false,
+        }
+      )
+
+      res.redirect(`/projects/details/${req.params.projectId}`)
     } catch (err) {
       console.error(err)
       return res.render('error/500', { layout: 'layouts/layoutError' })

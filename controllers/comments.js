@@ -7,6 +7,13 @@ module.exports = {
       const issue = await Issue.findById(req.params.issueId)
         .populate('project')
         .lean()
+      const projectMember = issue.project.members.filter(
+        (member) => req.user.id == member
+      )
+
+      if (!projectMember)
+        return res.render('error/404', { layout: 'layouts/layoutError' })
+
       req.body.issue = issue
       req.body.user = req.user
       await Comment.create(req.body)
@@ -26,13 +33,14 @@ module.exports = {
       })
         .populate('issue')
         .lean()
-      const issue = await Issue.findById(comment.issue._id)
-        .populate('project')
-        .lean()
 
       if (!comment) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
+
+      const issue = await Issue.findById(comment.issue._id)
+        .populate('project')
+        .lean()
 
       if (comment.user != req.user.id) {
         res.redirect(`/issues/${issue.project._id}/details/${issue._id}/1`)
@@ -52,13 +60,14 @@ module.exports = {
       const comment = await Comment.findById(req.params.id)
         .populate('issue')
         .lean()
-      const issue = await Issue.findById(comment.issue._id)
-        .populate('project')
-        .lean()
 
       if (!comment) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
+
+      const issue = await Issue.findById(comment.issue._id)
+        .populate('project')
+        .lean()
 
       if (comment.user != req.user.id) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
@@ -81,13 +90,14 @@ module.exports = {
       const comment = await Comment.findById(req.params.id)
         .populate('issue')
         .lean()
-      const issue = await Issue.findById(comment.issue._id)
-        .populate('project')
-        .lean()
 
       if (!comment) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
       }
+
+      const issue = await Issue.findById(comment.issue._id)
+        .populate('project')
+        .lean()
 
       if (comment.user != req.user.id) {
         return res.render('error/404', { layout: 'layouts/layoutError' })
