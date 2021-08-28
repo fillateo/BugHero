@@ -101,42 +101,51 @@ Technologies that I used for build this project.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Follow instructions below for running this app on your machine.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Make sure you have installed all of the following prerequisites on your machine.
+
+* Git
+* Node.js
+* MongoDB
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
+1. Clone the repo
+```sh
+git clone https://github.com/fillateo/BugHero.git
+```
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
+4. Create file config.env inside of config/ folder & Enter your PORT, MONGO_URI, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET & ABSOLUTE_URL in `config.env`
+   ```sh
+   PORT = 5000
+   MONGO_URI = Enter your mongo url
+   GOOGLE_CLIENT_ID = Enter your Google Client Id
+   GOOGLE_CLIENT_SECRET = Enter your Google Client Secret
+   ABSOLUTE_URL = Enter your Absolute URL (only required in production mode)
    ```
 
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Running the App
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+For development mode:
+```sh
+  npm run dev
+```
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+For production mode:
+```sh
+npm run start
+```
 
+App will runnig on port 5000 & if you are in development mode, just go to http://localhost:5000.
 
 
 <!-- ROADMAP -->
