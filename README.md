@@ -37,11 +37,11 @@
     Web based application for tracking issues in your personal or collaborative projects!
     <br />
     <br />
-    <a href="https://bug-hero.herokuapp.com">View Demo</a>
+    <a href="https://bug-hero.herokuapp.com"><strong>View Demo</strong></a>
     ·
-    <a href="https://github.com/fillateo/BugHero/issues">Report Bug</a>
+    <a href="https://github.com/fillateo/BugHero/issues"><strong>Report Bug</strong></a>
     ·
-    <a href="https://github.com/fillateo/BugHero/issues">Request Feature</a>
+    <a href="https://github.com/fillateo/BugHero/issues"><strong>Request Feature</strong></a>
   </p>
 </p>
 
