@@ -54,7 +54,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#features">Features</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -77,27 +77,24 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- FEATURES -->
+## features
 
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+* User Authentication & Authorization
+* Login with OAuth2 (Google)
+* Issue by type, priority & status
+* Issue comment
+* Assign user members in project
+* Attach additional files in project
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
+Technologies that I used for build this project.
+* [MDBootstrap](https://mdbootstrap.com/)
+* [Nodejs](https://nodejs.org/en/)
+* [Express](expressjs.com)
+* [MongoDB](mongodb.com)
 
 
 
