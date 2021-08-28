@@ -36,8 +36,6 @@
   <p align="center">
     Web based application for tracking issues in your personal or collaborative projects!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://bug-hero.herokuapp.com">View Demo</a>
     ·
