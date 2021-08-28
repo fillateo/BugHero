@@ -28,7 +28,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/fillateo/BugHero">
-    <img src="public/img/logo.jpg" alt="Logo">
+    <img src="public/img/logo.jpg" width="90" alt="Logo">
   </a>
 
   <h3 align="center">BugHero</h3>
