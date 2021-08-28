@@ -14,7 +14,8 @@
 *** See the bottom of this document for the declaration of the reference variables
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
+
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -23,6 +24,7 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
+-->
 
 <!-- PROJECT LOGO -->
 <br />
@@ -80,7 +82,6 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
@@ -170,9 +171,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 ## Contact
-
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
+Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
 
