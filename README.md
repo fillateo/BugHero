@@ -146,5 +146,5 @@ App will runnig on port 5000 & if you are in development mode, just go to http:/
 
 
 <!-- CONTACT -->
-## Contact Me
+## Contact
 Jait Ramadandi Jeke - <jaitramadandij@gmail.com>
