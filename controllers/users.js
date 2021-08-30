@@ -72,7 +72,7 @@ module.exports = {
           runValidators: true,
         })
 
-        res.redirect(`/users/${req.params.id}`)
+        res.redirect(`/`)
       }
     } catch (err) {
       console.error(err)
