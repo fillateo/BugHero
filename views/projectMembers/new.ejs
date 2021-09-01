@@ -35,7 +35,7 @@
                         <td>
                             <img class="img-profile rounded-circle" style="width: 50px;" src="<%= users[i].image %>">
                             <br>
-                            <a href=""><%= users[i].username %></a>
+                            <a href="/users/<%= users[i]._id %>"><%= users[i].username %></a>
                         </td>
                         <td>
                             <form method="POST" action="/projectmembers/<%= project._id %>">
