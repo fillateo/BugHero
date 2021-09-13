@@ -1,9 +1,9 @@
 // const { assert } = require('chai')
 const request = require('supertest-as-promised')
 
-const app = require('../app')
+const app = require('../../app')
 
-const User = require('../models/User')
+const User = require('../../models/User')
 
 process.env.NODE_ENV = 'development'
 
