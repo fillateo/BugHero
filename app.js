@@ -3,7 +3,6 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const expressLayouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
-const bodyParser = require('body-parser')
 const path = require('path')
 const passport = require('passport')
 const session = require('express-session')
@@ -64,10 +63,10 @@ app.set('view engine', 'ejs')
 app.set('layout', 'layouts/layout', 'layouts/auth')
 
 // parsing data in json
-app.use(bodyParser.json())
+app.use(express.json())
 
 // parsing application/xwww-
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 
 // Method override
 app.use(
