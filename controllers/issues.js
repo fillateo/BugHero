@@ -62,7 +62,7 @@ module.exports = {
         })
           .skip(perPage * page - perPage)
           .limit(perPage)
-          .sort('-createdAt')
+          .sort('createdAt')
           .populate('user')
           .lean()
           .exec((error, comments) => {
@@ -92,7 +92,7 @@ module.exports = {
         Comment.find({ issue: issue })
           .skip(perPage * page - perPage)
           .limit(perPage)
-          .sort('-createdAt')
+          .sort('createdAt')
           .populate('user')
           .lean()
           .exec((error, comments) => {
