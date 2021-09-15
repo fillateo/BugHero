@@ -7,7 +7,7 @@ module.exports = {
       const issue = await Issue.findById(req.params.issueId)
         .populate('project')
         .lean()
-      const projectMember = issue.project.members.filter(
+      const projectMember = issue.project.members.some(
         (member) => req.user.id == member
       )
 
